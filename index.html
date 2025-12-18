@@ -8,12 +8,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="format-detection" content="telephone=no">
     <meta name="msapplication-tap-highlight" content="no">
-    <meta name="theme-color" content="#0a5c36">
-    
-    <!-- Telegram Web App SDK -->
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    
-    <title>🎰 Классика 6/45 - Telegram Lottery</title>
+    <title>🎰 Классика 6/45 - Казино Лотерея</title>
     <style>
         /* Казино-стиль с зеленым фоном и Telegram Stars */
         
@@ -53,33 +48,23 @@
         
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
-            background: #0a5c36; /* Fallback для iOS */
             background: linear-gradient(135deg, var(--casino-dark-green) 0%, #0a3c24 100%);
             color: var(--text-light);
             min-height: 100vh;
             min-height: -webkit-fill-available;
             position: relative;
             overflow-x: hidden;
+            padding: var(--container-padding);
             font-size: var(--font-size-base);
             line-height: 1.5;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             touch-action: manipulation;
-            padding: 0;
         }
         
-        /* Telegram Mini App стили */
-        body.telegram-mini-app {
-            background: linear-gradient(135deg, var(--casino-dark-green) 0%, #0a3c24 100%) !important;
-            padding-top: env(safe-area-inset-top);
-            padding-bottom: env(safe-area-inset-bottom);
-            padding-left: env(safe-area-inset-left);
-            padding-right: env(safe-area-inset-right);
-        }
-        
-        /* Безопасные области для всех устройств */
+        /* Безопасные области для вырезов (iPhone X и новее) */
         @supports(padding: max(0px)) {
-            body:not(.telegram-mini-app) {
+            body {
                 padding-left: max(var(--container-padding), env(safe-area-inset-left));
                 padding-right: max(var(--container-padding), env(safe-area-inset-right));
                 padding-top: max(var(--container-padding), env(safe-area-inset-top));
@@ -100,8 +85,6 @@
                 radial-gradient(circle at 80% 20%, rgba(220, 53, 69, 0.1) 0%, transparent 50%),
                 repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255, 255, 255, 0.03) 10px, rgba(255, 255, 255, 0.03) 20px);
             z-index: -1;
-            -webkit-backface-visibility: hidden;
-            -webkit-transform: translateZ(0);
         }
         
         /* Анимированные частицы */
@@ -123,7 +106,6 @@
             opacity: 0.2;
             animation: particles 20s linear infinite;
             z-index: -1;
-            pointer-events: none;
         }
         
         @keyframes particles {
@@ -145,14 +127,7 @@
             overflow: hidden;
             margin-top: 20px;
             margin-bottom: 20px;
-            width: calc(100% - var(--container-padding) * 2);
-        }
-        
-        body.telegram-mini-app .lottery-container {
-            width: calc(100% - env(safe-area-inset-left) - env(safe-area-inset-right));
-            margin-top: max(20px, env(safe-area-inset-top));
-            margin-bottom: max(20px, env(safe-area-inset-bottom));
-            min-height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 40px);
+            width: 100%;
         }
         
         .lottery-container::before {
@@ -451,7 +426,6 @@
             justify-content: center;
             touch-action: manipulation;
             user-select: none;
-            -webkit-appearance: none;
         }
         
         .number-btn:active {
@@ -617,10 +591,6 @@
             backdrop-filter: blur(5px);
             -webkit-backdrop-filter: blur(5px);
             padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
-        }
-        
-        body.telegram-mini-app .rules-modal {
-            padding: 0;
         }
         
         .rules-content {
@@ -842,7 +812,7 @@
                 --container-padding: 15px;
             }
             
-            body:not(.telegram-mini-app) {
+            body {
                 padding: 15px;
             }
             
@@ -850,7 +820,6 @@
                 padding: 20px;
                 margin-top: 10px;
                 margin-bottom: 10px;
-                width: calc(100% - 30px);
             }
             
             .header-section {
@@ -915,13 +884,12 @@
                 --container-padding: 12px;
             }
             
-            body:not(.telegram-mini-app) {
+            body {
                 padding: 12px;
             }
             
             .lottery-container {
                 padding: 18px;
-                width: calc(100% - 24px);
             }
             
             h1::after {
@@ -978,13 +946,12 @@
                 --container-padding: 10px;
             }
             
-            body:not(.telegram-mini-app) {
+            body {
                 padding: 10px;
             }
             
             .lottery-container {
                 padding: 15px;
-                width: calc(100% - 20px);
             }
             
             .numbers-grid {
@@ -1024,14 +991,13 @@
                 --font-size-base: 14px;
             }
             
-            body:not(.telegram-mini-app) {
+            body {
                 padding: 8px;
                 font-size: 14px;
             }
             
             .lottery-container {
                 padding: 12px;
-                width: calc(100% - 16px);
             }
             
             h1::after {
@@ -1126,14 +1092,13 @@
                 --font-size-base: 13px;
             }
             
-            body:not(.telegram-mini-app) {
+            body {
                 padding: 5px;
                 font-size: 13px;
             }
             
             .lottery-container {
                 padding: 10px;
-                width: calc(100% - 10px);
             }
             
             .numbers-grid {
@@ -1224,7 +1189,7 @@
         
         /* Темная тема (системная) */
         @media (prefers-color-scheme: dark) {
-            body:not(.telegram-mini-app) {
+            body {
                 background: linear-gradient(135deg, #0a3c24 0%, #062016 100%);
             }
             
@@ -1262,25 +1227,6 @@
         @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
             body::after {
                 background-size: 50px 50px;
-            }
-        }
-        
-        /* iOS-specific fixes для браузера (не для Telegram) */
-        @supports (-webkit-touch-callout: none) {
-            body:not(.telegram-mini-app) {
-                min-height: -webkit-fill-available;
-            }
-            
-            body:not(.telegram-mini-app)::after {
-                display: none;
-            }
-            
-            @media (max-width: 768px) {
-                .lottery-container:not(.telegram-mini-app .lottery-container) {
-                    backdrop-filter: none;
-                    -webkit-backdrop-filter: none;
-                    background: rgba(255, 255, 255, 0.12);
-                }
             }
         }
         
@@ -1389,62 +1335,6 @@
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
-        
-        /* Уведомления */
-        .notification {
-            background: rgba(0, 0, 0, 0.8);
-            color: white;
-            padding: 12px 20px;
-            border-radius: 10px;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transform: translateX(100%);
-            transition: transform 0.3s ease;
-            max-width: 300px;
-        }
-        
-        .notification.show {
-            transform: translateX(0);
-        }
-        
-        .notification.success {
-            border-left: 4px solid #4CAF50;
-        }
-        
-        .notification.error {
-            border-left: 4px solid #f44336;
-        }
-        
-        .notification.warning {
-            border-left: 4px solid #ff9800;
-        }
-        
-        /* Telegram UI элементы */
-        .telegram-button {
-            background: linear-gradient(145deg, var(--telegram-blue), #0088cc);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-        
-        .telegram-balance {
-            background: rgba(52, 183, 241, 0.1);
-            border: 1px solid rgba(52, 183, 241, 0.3);
-            border-radius: 10px;
-            padding: 10px 15px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
     </style>
 </head>
 <body>
@@ -1490,14 +1380,6 @@
             <div id="selectedNumbers" style="font-size: 16px; margin: 10px 0; font-weight: bold;">Выбрано: 0/6</div>
             <div id="result" class="result"></div>
             <div id="winningNumbers" class="winning-numbers"></div>
-        </div>
-        
-        <!-- Телеграм баланс (только в Mini App) -->
-        <div id="telegramBalance" style="display: none; margin-top: 20px;">
-            <div class="telegram-balance">
-                <span>Ваш баланс Telegram Stars:</span>
-                <span class="stars-badge" id="telegramStarsBalance">0 ★</span>
-            </div>
         </div>
     </div>
 
@@ -1668,8 +1550,6 @@
                 this.dailySpent = 0;
                 this.isPlaying = false;
                 this.lastWin = 0;
-                this.isTelegramApp = false;
-                this.telegramUserId = null;
                 
                 this.init();
             }
@@ -1677,51 +1557,12 @@
             init() {
                 console.log("🎰 Инициализация игры Классика 6/45...");
                 
-                // Проверяем запуск в Telegram Mini App
-                this.checkTelegramEnvironment();
-                
                 this.loadGameData();
                 this.initNumberGrid();
                 this.updateUI();
                 this.setupEventListeners();
                 
                 console.log("✅ Игра готова к использованию!");
-                console.log("📱 Режим:", this.isTelegramApp ? "Telegram Mini App" : "Браузер");
-            }
-            
-            checkTelegramEnvironment() {
-                // Проверяем, запущено ли в Telegram Mini App
-                if (window.Telegram && Telegram.WebApp) {
-                    this.isTelegramApp = true;
-                    
-                    // Настройка Telegram Web App
-                    Telegram.WebApp.expand();
-                    Telegram.WebApp.setBackgroundColor('#0a5c36');
-                    Telegram.WebApp.enableClosingConfirmation();
-                    
-                    // Получаем данные пользователя
-                    if (Telegram.WebApp.initDataUnsafe && Telegram.WebApp.initDataUnsafe.user) {
-                        this.telegramUserId = Telegram.WebApp.initDataUnsafe.user.id;
-                        console.log("👤 ID пользователя Telegram:", this.telegramUserId);
-                    }
-                    
-                    // Добавляем класс для стилей
-                    document.body.classList.add('telegram-mini-app');
-                    
-                    // Показываем баланс Telegram Stars
-                    this.showTelegramBalance();
-                }
-            }
-            
-            showTelegramBalance() {
-                const balanceElement = document.getElementById('telegramBalance');
-                if (balanceElement) {
-                    balanceElement.style.display = 'block';
-                    
-                    // В реальном приложении здесь будет запрос к API
-                    // Для демо показываем фиктивный баланс
-                    document.getElementById('telegramStarsBalance').textContent = '1,500 ★';
-                }
             }
             
             initNumberGrid() {
@@ -1850,14 +1691,6 @@
             }
             
             playGame() {
-                if (this.isTelegramApp) {
-                    this.playGameInTelegram();
-                } else {
-                    this.playGameInBrowser();
-                }
-            }
-            
-            playGameInBrowser() {
                 if (!this.validatePlayConditions()) {
                     return;
                 }
@@ -1871,32 +1704,6 @@
                 }
                 
                 this.startGameSession(betType, selectedArray, ticketCost);
-            }
-            
-            playGameInTelegram() {
-                if (!this.validatePlayConditions()) {
-                    return;
-                }
-                
-                const betType = this.getBetType();
-                const selectedArray = Array.from(this.selectedNumbers);
-                const ticketCost = this.calculateTicketCost(betType, selectedArray.length);
-                
-                // Используем Telegram UI для подтверждения
-                if (window.Telegram && Telegram.WebApp) {
-                    Telegram.WebApp.showConfirm(
-                        `Подтвердите покупку билета за ${ticketCost} ★\n\nВы выбрали ${selectedArray.length} чисел.`,
-                        (confirmed) => {
-                            if (confirmed) {
-                                // В реальном приложении здесь будет вызов API для оплаты через Stars
-                                // Для демо просто запускаем игру
-                                this.startGameSession(betType, selectedArray, ticketCost);
-                            }
-                        }
-                    );
-                } else {
-                    this.startGameSession(betType, selectedArray, ticketCost);
-                }
             }
             
             validatePlayConditions() {
@@ -1921,15 +1728,17 @@
             }
             
             showConfirmationDialog(betType, numbers, cost) {
-                const message = `🎫 Подтвердите ставку:
+                const message = `
+                    🎫 Подтвердите ставку:
                     
-📊 Тип ставки: ${betType === 'expanded' ? 'РАЗВЕРНУТАЯ' : 'ПРОСТАЯ'}
-🔢 Выбрано чисел: ${numbers.length}
-📈 Комбинаций: ${betType === 'expanded' ? this.calculateCombinations(numbers.length, 6) : 1}
-💰 Стоимость: ${cost} ★
-💵 Потрачено сегодня: ${this.dailySpent} / ${GAME_CONFIG.maxDailyBet} ★
+                    📊 Тип ставки: ${betType === 'expanded' ? 'РАЗВЕРНУТАЯ' : 'ПРОСТАЯ'}
+                    🔢 Выбрано чисел: ${numbers.length}
+                    📈 Комбинаций: ${betType === 'expanded' ? this.calculateCombinations(numbers.length, 6) : 1}
+                    💰 Стоимость: ${cost} ★
+                    💵 Потрачено сегодня: ${this.dailySpent} / ${GAME_CONFIG.maxDailyBet} ★
                     
-Нажмите OK для продолжения`;
+                    Нажмите OK для продолжения
+                `;
                 
                 return confirm(message.trim());
             }
@@ -1948,11 +1757,6 @@
                 if (winAmount > 0) {
                     this.userBalance += winAmount;
                     this.lastWin = winAmount;
-                    
-                    // В Telegram Mini App показываем специальное уведомление
-                    if (this.isTelegramApp && window.Telegram && Telegram.WebApp) {
-                        Telegram.WebApp.showAlert(`🎉 ПОЗДРАВЛЯЕМ! Вы выиграли ${winAmount} ★!`);
-                    }
                 }
                 
                 this.showGameResults(winningNumbers, matchedNumbers, winAmount, ticketCost);
@@ -1960,7 +1764,6 @@
                 setTimeout(() => {
                     this.isPlaying = false;
                     this.disableInterface(false);
-                    this.updateUI();
                 }, 3000);
             }
             
@@ -2022,7 +1825,7 @@
                 const isWin = winAmount > 0;
                 const winClass = isWin ? 'win' : 'lose';
                 const winMessage = isWin ? 
-                    `🎊 ПОЗДРАВЛЯЕМ! ВЫ ВЫИГРАЛИ ${winAmount.toLocaleString()} ★!` : 
+                    `🎊 ПОЗДРАВЛЯЕМ! ВЫ ВЫИГРАЛИ ${winAmount} ★!` : 
                     '😔 К сожалению, вы не выиграли';
                 
                 resultDiv.innerHTML = `
@@ -2031,7 +1834,7 @@
                         <div class="result-grid">
                             <div class="result-item">
                                 <span class="label">💵 Стоимость ставки:</span>
-                                <span class="value">${ticketCost.toLocaleString()} ★</span>
+                                <span class="value">${ticketCost} ★</span>
                             </div>
                             <div class="result-item">
                                 <span class="label">✅ Совпало чисел:</span>
@@ -2047,7 +1850,7 @@
                         </div>
                         ${isWin ? `
                             <div class="win-info">
-                                <p>💰 Выигрыш будет зачислен на ваш баланс${this.isTelegramApp ? ' Telegram Stars' : ''}</p>
+                                <p>💰 Выигрыш будет зачислен на ваш баланс Telegram Stars</p>
                                 <p>⏱️ Обработка занимает до 24 часов</p>
                             </div>
                         ` : ''}
@@ -2057,7 +1860,7 @@
                 this.playSound(isWin ? 'win' : 'lose');
                 
                 if (isWin) {
-                    this.showNotification(`🎉 ВЫИГРЫШ ${winAmount.toLocaleString()} ★!`, 'success');
+                    this.showNotification(`🎉 ВЫИГРЫШ ${winAmount} ★!`, 'success');
                 }
             }
             
@@ -2070,8 +1873,7 @@
                     matchedNumbers: [...matched],
                     winAmount: winAmount,
                     ticketCost: cost,
-                    betType: this.getBetType(),
-                    telegramUserId: this.telegramUserId
+                    betType: this.getBetType()
                 };
                 
                 this.gameHistory.unshift(gameResult);
@@ -2148,7 +1950,7 @@
                 
                 if (betType === 'expanded' && this.selectedNumbers.size >= GAME_CONFIG.minExpanded) {
                     const cost = this.calculateTicketCost('expanded', this.selectedNumbers.size);
-                    playBtn.innerHTML = `<span>⭐</span> Играть за <span class="stars-badge">${cost.toLocaleString()} <span class="star-icon">★</span></span>`;
+                    playBtn.innerHTML = `<span>⭐</span> Играть за <span class="stars-badge">${cost} <span class="star-icon">★</span></span>`;
                 } else {
                     playBtn.innerHTML = `<span>⭐</span> Играть за <span class="stars-badge">${GAME_CONFIG.ticketPrice} <span class="star-icon">★</span></span>`;
                 }
@@ -2157,14 +1959,14 @@
             updateBalanceInfo() {
                 const balanceElement = document.getElementById('userBalance');
                 if (balanceElement) {
-                    balanceElement.textContent = `Баланс: ${this.userBalance.toLocaleString()} ★`;
+                    balanceElement.textContent = `Баланс: ${this.userBalance} ★`;
                 }
                 
                 const dailyElement = document.getElementById('dailySpent');
                 if (dailyElement) {
                     const percent = (this.dailySpent / GAME_CONFIG.maxDailyBet * 100).toFixed(1);
                     dailyElement.innerHTML = `
-                        Сегодня: ${this.dailySpent.toLocaleString()} / ${GAME_CONFIG.maxDailyBet.toLocaleString()} ★
+                        Сегодня: ${this.dailySpent} / ${GAME_CONFIG.maxDailyBet} ★
                         <progress value="${this.dailySpent}" max="${GAME_CONFIG.maxDailyBet}"></progress>
                         ${percent}%
                     `;
@@ -2178,21 +1980,13 @@
                     if (costElement) {
                         const combinations = this.calculateCombinations(this.selectedNumbers.size, 6);
                         const cost = combinations * GAME_CONFIG.ticketPrice;
-                        costElement.textContent = `Стоимость: ${cost.toLocaleString()} ★ (${combinations} комбинаций)`;
+                        costElement.textContent = `Стоимость: ${cost} ★ (${combinations} комбинаций)`;
                     }
                 }
             }
             
             showNotification(message, type = 'info') {
                 console.log(`🔔 ${message}`);
-                
-                // В Telegram Mini App используем нативные уведомления для важных сообщений
-                if (this.isTelegramApp && (type === 'success' || type === 'error')) {
-                    if (window.Telegram && Telegram.WebApp) {
-                        Telegram.WebApp.showAlert(message);
-                        return;
-                    }
-                }
                 
                 const notification = document.createElement('div');
                 notification.className = `notification ${type}`;
@@ -2302,8 +2096,7 @@
                         userBalance: this.userBalance,
                         dailySpent: this.dailySpent,
                         gameHistory: this.gameHistory,
-                        lastPlayDate: new Date().toISOString(),
-                        telegramUserId: this.telegramUserId
+                        lastPlayDate: new Date().toISOString()
                     };
                     
                     localStorage.setItem('classic6_45_data', JSON.stringify(data));
@@ -2340,13 +2133,6 @@
                         }
                     }, 1000);
                 });
-                
-                // Обработка изменения ориентации экрана
-                window.addEventListener('orientationchange', () => {
-                    setTimeout(() => {
-                        this.updateUI();
-                    }, 300);
-                });
             }
             
             disableInterface(disabled) {
@@ -2362,17 +2148,7 @@
                     playBtn.disabled = disabled;
                     playBtn.innerHTML = disabled ? 
                         `<span class="loader"></span> Обработка...` : 
-                        this.getPlayButtonContent();
-                }
-            }
-            
-            getPlayButtonContent() {
-                const betType = this.getBetType();
-                if (betType === 'expanded' && this.selectedNumbers.size >= GAME_CONFIG.minExpanded) {
-                    const cost = this.calculateTicketCost('expanded', this.selectedNumbers.size);
-                    return `<span>⭐</span> Играть за <span class="stars-badge">${cost.toLocaleString()} <span class="star-icon">★</span></span>`;
-                } else {
-                    return `<span>⭐</span> Играть за <span class="stars-badge">${GAME_CONFIG.ticketPrice} <span class="star-icon">★</span></span>`;
+                        `<span>⭐</span> Играть за <span class="stars-badge">${GAME_CONFIG.ticketPrice} <span class="star-icon">★</span></span>`;
                 }
             }
             
@@ -2430,40 +2206,15 @@
         (function() {
             console.log('🚀 Загрузка игры Классика 6/45...');
             
-            // Проверка на Telegram Mini App
-            const isTelegramWebApp = window.Telegram && Telegram.WebApp;
-            
-            if (isTelegramWebApp) {
-                console.log('📱 Запуск в Telegram Mini App');
-                initTelegramApp();
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initializeGame);
             } else {
-                console.log('🌐 Запуск в браузере');
-                initBrowserApp();
+                initializeGame();
             }
             
-            function initTelegramApp() {
-                // Дополнительная настройка Telegram
-                Telegram.WebApp.ready();
-                
-                // Отслеживаем изменения viewport
-                Telegram.WebApp.onEvent('viewportChanged', (event) => {
-                    console.log('Viewport changed:', event);
-                    // Обновляем UI при изменении размера
-                    setTimeout(() => {
-                        if (gameInstance) gameInstance.updateUI();
-                    }, 100);
-                });
-                
-                // Обработка закрытия приложения
-                Telegram.WebApp.onEvent('closing', () => {
-                    console.log('Приложение закрывается');
-                    if (gameInstance) gameInstance.saveGameData();
-                });
-                
-                // Инициализация игры
+            function initializeGame() {
                 gameInstance = initGame();
                 
-                // Устанавливаем обработчик клика вне модального окна
                 window.addEventListener('click', (event) => {
                     const modal = document.getElementById('rulesModal');
                     if (event.target === modal) {
@@ -2471,36 +2222,15 @@
                     }
                 });
                 
-                console.log('✅ Игра успешно загружена в Telegram Mini App!');
-            }
-            
-            function initBrowserApp() {
-                if (document.readyState === 'loading') {
-                    document.addEventListener('DOMContentLoaded', initializeGame);
-                } else {
-                    initializeGame();
-                }
+                document.addEventListener('keydown', (event) => {
+                    if (event.key === 'Escape') {
+                        hideRules();
+                    }
+                });
                 
-                function initializeGame() {
-                    gameInstance = initGame();
-                    
-                    window.addEventListener('click', (event) => {
-                        const modal = document.getElementById('rulesModal');
-                        if (event.target === modal) {
-                            hideRules();
-                        }
-                    });
-                    
-                    document.addEventListener('keydown', (event) => {
-                        if (event.key === 'Escape') {
-                            hideRules();
-                        }
-                    });
-                    
-                    console.log('✅ Игра успешно загружена в браузере!');
-                }
+                console.log('✅ Игра успешно загружена и готова!');
             }
         })();
     </script>
 </body>
-</html>
+    </html>
