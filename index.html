@@ -1307,10 +1307,12 @@
                 let count;
                 
                 if (betType === 'expanded') {
+                    // Для развернутой ставки случайное количество от minExpanded до maxExpanded
                     count = Math.floor(Math.random() * 
                         (GAME_CONFIG.maxExpanded - GAME_CONFIG.minExpanded + 1)) + 
                         GAME_CONFIG.minExpanded;
                 } else {
+                    // Для простой ставки всегда 6 чисел
                     count = GAME_CONFIG.numbersToSelect;
                 }
                 
@@ -1327,7 +1329,11 @@
                     const allNumbers = Array.from({length: GAME_CONFIG.totalNumbers}, (_, i) => i + 1);
                     const shuffled = this.shuffleArrayFast(allNumbers);
                     
-                    shuffled.slice(0, count).forEach(num => {
+                    // Берем ровно count чисел
+                    const newNumbers = shuffled.slice(0, count);
+                    
+                    // Добавляем новые числа
+                    newNumbers.forEach(num => {
                         this.selectedNumbers.add(num);
                         this.highlightNumberButton(num, false);
                     });
