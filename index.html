@@ -99,11 +99,6 @@
             pointer-events: none;
         }
         
-        /* УБИРАЕМ СЛОЖНЫЕ АНИМАЦИИ ЧАСТИЦ */
-        body::after {
-            display: none;
-        }
-        
         .lottery-container {
             max-width: 1200px;
             margin: 0 auto;
@@ -131,11 +126,6 @@
             border-radius: 0;
             min-height: 100vh;
             padding-bottom: max(12px, env(safe-area-inset-bottom));
-        }
-        
-        /* УБИРАЕМ СЛОЖНУЮ АНИМАЦИЮ БЛЕСКА */
-        .lottery-container::before {
-            display: none;
         }
         
         /* Заголовок в стиле казино - УПРОЩЕННЫЙ */
@@ -213,21 +203,6 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         }
         
-        /* УБИРАЕМ HOVER ЭФФЕКТЫ ДЛЯ МОБИЛЬНЫХ */
-        @media (hover: none) {
-            .rules-btn:hover {
-                transform: none;
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-            }
-        }
-        
-        @media (hover: hover) {
-            .rules-btn:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
-            }
-        }
-        
         /* Инфо панель с звездами - УПРОЩЕННАЯ */
         .stars-info {
             display: flex;
@@ -254,12 +229,6 @@
             font-size: 1.8rem;
             color: var(--casino-gold);
             text-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
-        }
-        
-        /* УБИРАЕМ АНИМАЦИЮ ЗВЕЗДЫ */
-        @keyframes starGlow {
-            from { text-shadow: 0 0 8px rgba(255, 215, 0, 0.5); }
-            to { text-shadow: 0 0 12px rgba(255, 215, 0, 0.7); }
         }
         
         /* Панель управления - УПРОЩЕННАЯ */
@@ -305,21 +274,6 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
         }
         
-        /* УБИРАЕМ HOVER ЭФФЕКТЫ ДЛЯ МОБИЛЬНЫХ */
-        @media (hover: none) {
-            .control-btn:hover {
-                transform: none;
-                box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
-            }
-        }
-        
-        @media (hover: hover) {
-            .control-btn:hover {
-                transform: translateY(-1px);
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
-            }
-        }
-        
         .control-btn.quick-pick {
             background: linear-gradient(145deg, var(--casino-green), #1a6b2c);
         }
@@ -334,16 +288,6 @@
             font-size: 1rem;
             padding: 12px 24px;
             font-weight: 700;
-        }
-        
-        .control-btn.play:active {
-            transform: scale(0.96);
-        }
-        
-        @media (hover: hover) {
-            .control-btn.play:hover {
-                background: linear-gradient(145deg, #ffed4e, var(--casino-gold));
-            }
         }
         
         .control-btn:disabled {
@@ -375,40 +319,245 @@
             font-size: 1em;
         }
         
-        /* Выпадающий список - УПРОЩЕННЫЙ */
-        .select-style {
-            padding: 10px 16px;
-            border-radius: 8px;
-            border: 1px solid var(--casino-gold);
-            background: rgba(0, 0, 0, 0.25);
-            color: white;
-            font-size: 0.95rem;
-            cursor: pointer;
-            outline: none;
-            transition: all 0.15s ease;
-            appearance: none;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='%23ffd700' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 12px center;
-            background-size: 10px;
-            padding-right: 32px;
-            min-height: 44px;
-            flex: 1;
-            min-width: 180px;
-            touch-action: manipulation;
+        /* Новый главный экран */
+        .tickets-section {
+            background: rgba(0, 0, 0, 0.15);
+            padding: 16px;
+            border-radius: 12px;
+            margin: 16px 0;
+            border: 1px solid rgba(255, 215, 0, 0.15);
         }
         
-        .select-style:focus {
-            border-color: var(--casino-light-green);
-            box-shadow: 0 0 0 2px rgba(40, 167, 69, 0.3);
+        .timer-display {
+            background: linear-gradient(145deg, #0a5c36, #1e7e34);
+            color: var(--casino-gold);
+            padding: 12px 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 16px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
         
-        .select-style option {
-            background: var(--casino-dark-green);
+        .tickets-carousel {
+            display: flex;
+            overflow-x: auto;
+            gap: 12px;
+            padding: 10px 0;
+            scrollbar-width: thin;
+            scrollbar-color: var(--casino-gold) transparent;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .tickets-carousel::-webkit-scrollbar {
+            height: 6px;
+        }
+        
+        .tickets-carousel::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        
+        .tickets-carousel::-webkit-scrollbar-thumb {
+            background: var(--casino-gold);
+            border-radius: 3px;
+        }
+        
+        .ticket-card {
+            min-width: 280px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 16px;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            flex-shrink: 0;
+        }
+        
+        .ticket-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .ticket-id {
+            font-weight: bold;
+            color: var(--casino-gold);
+            font-size: 1.1rem;
+        }
+        
+        .tiraj-id {
+            font-weight: bold;
+            color: var(--telegram-blue);
+        }
+        
+        .ticket-numbers {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 6px;
+            margin: 10px 0;
+        }
+        
+        .ticket-number {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1rem;
+            border: 2px solid transparent;
+        }
+        
+        .ticket-number.selected {
+            background: linear-gradient(145deg, var(--casino-red), #ff4757);
             color: white;
+        }
+        
+        .ticket-number.winning {
+            background: linear-gradient(145deg, #4CAF50, #2E7D32);
+            color: white;
+            border-color: #4CAF50;
+            box-shadow: 0 0 8px rgba(76, 175, 80, 0.5);
+        }
+        
+        .ticket-status {
+            text-align: center;
             padding: 8px;
+            border-radius: 6px;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        
+        .status-win {
+            background: rgba(76, 175, 80, 0.2);
+            color: #4CAF50;
+            border: 1px solid #4CAF50;
+        }
+        
+        .status-lose {
+            background: rgba(244, 67, 54, 0.2);
+            color: #f44336;
+            border: 1px solid #f44336;
+        }
+        
+        .status-pending {
+            background: rgba(255, 215, 0, 0.2);
+            color: var(--casino-gold);
+            border: 1px solid var(--casino-gold);
+        }
+        
+        .ticket-draw-time {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-align: center;
+            margin-top: 8px;
+        }
+        
+        /* Модальное окно выбора чисел */
+        .numbers-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .numbers-content {
+            background: #0a3c24;
+            margin: 0;
+            padding: 20px;
+            border-radius: 0;
+            width: 100%;
+            height: 100%;
+            overflow-y: auto;
+            border: none;
+            position: relative;
+        }
+        
+        .numbers-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .numbers-header h2 {
+            color: var(--casino-gold);
+            font-size: 1.5rem;
+        }
+        
+        .close-modal {
+            background: var(--casino-red);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Модальное окно с правилами */
+        .rules-modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .rules-content {
+            background: #0a3c24;
+            margin: 5% auto;
+            padding: 20px;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 85vh;
+            overflow-y: auto;
+            border: 2px solid var(--casino-gold);
+            position: relative;
+        }
+        
+        .rules-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .rules-close {
+            background: var(--casino-red);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         /* Сетка номеров в стиле казино - ОПТИМИЗИРОВАННАЯ */
@@ -456,27 +605,6 @@
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
         }
         
-        /* УБИРАЕМ СЛОЖНЫЙ ЭФФЕКТ БЛЕСКА */
-        .number-btn::before {
-            display: none;
-        }
-        
-        /* УБИРАЕМ HOVER ЭФФЕКТЫ ДЛЯ МОБИЛЬНЫХ */
-        @media (hover: none) {
-            .number-btn:hover {
-                transform: none;
-                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-            }
-        }
-        
-        @media (hover: hover) {
-            .number-btn:hover {
-                transform: scale(1.05);
-                background: linear-gradient(145deg, var(--casino-green), var(--casino-light-green));
-                box-shadow: 0 3px 8px rgba(255, 215, 0, 0.3);
-            }
-        }
-        
         .number-btn.selected {
             background: linear-gradient(145deg, var(--casino-red), #ff4757);
             color: white;
@@ -489,106 +617,6 @@
             0% { transform: scale(1); }
             50% { transform: scale(1.03); }
             100% { transform: scale(1); }
-        }
-        
-        body.telegram-mini-app .number-btn.selected {
-            animation: none;
-        }
-        
-        /* Результаты игры - УПРОЩЕННЫЕ */
-        .game-info {
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 12px;
-            padding: 16px;
-            margin: 16px 0;
-            border: 1px solid rgba(255, 215, 0, 0.2);
-        }
-        
-        #selectedNumbers {
-            font-size: 1rem;
-            font-weight: bold;
-            color: var(--casino-gold);
-            margin-bottom: 16px;
-            padding: 12px;
-            background: rgba(0, 0, 0, 0.15);
-            border-radius: 8px;
-            border-left: 3px solid var(--casino-gold);
-            text-align: center;
-        }
-        
-        .result {
-            padding: 16px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 8px;
-            margin: 12px 0;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-        
-        .result h3 {
-            color: var(--casino-gold);
-            margin-bottom: 12px;
-            font-size: 1.3rem;
-            text-align: center;
-        }
-        
-        .winning-numbers {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            align-items: center;
-            justify-content: center;
-            margin: 16px 0;
-            padding: 12px;
-            background: rgba(0, 0, 0, 0.15);
-            border-radius: 8px;
-        }
-        
-        .winning-numbers strong {
-            color: var(--casino-gold);
-            font-size: 1rem;
-            width: 100%;
-            text-align: center;
-            margin-bottom: 8px;
-        }
-        
-        .winning-numbers span {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 42px;
-            height: 42px;
-            background: linear-gradient(145deg, var(--casino-red), #ff4757);
-            color: white;
-            border-radius: 50%;
-            font-weight: bold;
-            font-size: 1.2rem;
-            box-shadow: 0 2px 6px rgba(220, 53, 69, 0.3);
-        }
-        
-        body.telegram-mini-app .winning-numbers span {
-            animation: none;
-        }
-        
-        .win {
-            color: #4CAF50;
-            font-weight: bold;
-            font-size: 1.1rem;
-            padding: 12px;
-            background: rgba(76, 175, 80, 0.1);
-            border-radius: 8px;
-            border-left: 3px solid #4CAF50;
-            text-align: center;
-        }
-        
-        .lose {
-            color: #f44336;
-            font-weight: bold;
-            font-size: 1.1rem;
-            padding: 12px;
-            background: rgba(244, 67, 54, 0.1);
-            border-radius: 8px;
-            border-left: 4px solid #f44336;
-            text-align: center;
         }
         
         /* Прелоадер */
@@ -622,37 +650,24 @@
             margin-bottom: 16px;
         }
         
-        /* Модальное окно правил - УПРОЩЕННОЕ */
-        .rules-modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.85);
-            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
+        /* Анимации */
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
         
-        .rules-content {
-            background: #0a3c24;
-            margin: 5% auto;
-            padding: 20px;
-            border-radius: 16px;
-            width: 90%;
-            max-width: 800px;
-            max-height: 85vh;
-            overflow-y: auto;
-            border: 2px solid var(--casino-gold);
-            position: relative;
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
         }
         
-        /* Остальные стили правил остаются похожими, но упрощенными */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
         
-        /* ==================== АДАПТИВНОСТЬ ==================== */
+        .fade-in {
+            animation: fadeIn 0.3s ease forwards;
+        }
         
         /* Телеграм специфичные оптимизации */
         body.telegram-mini-app {
@@ -660,7 +675,7 @@
             --number-btn-size: 42px;
         }
         
-        /* Очень маленькие смартфоны */
+        /* Адаптивность */
         @media (max-width: 374px) {
             :root {
                 --grid-columns: 6;
@@ -669,12 +684,15 @@
                 --container-padding: 10px;
             }
             
-            .numbers-grid {
-                gap: 6px;
+            .ticket-card {
+                min-width: 260px;
+            }
+            
+            .ticket-numbers {
+                grid-template-columns: repeat(3, 1fr);
             }
         }
         
-        /* Экстремально маленькие устройства */
         @media (max-width: 319px) {
             :root {
                 --grid-columns: 5;
@@ -682,7 +700,6 @@
             }
         }
         
-        /* Ландшафтная ориентация */
         @media (orientation: landscape) and (max-height: 600px) {
             :root {
                 --number-btn-size: 36px;
@@ -695,176 +712,12 @@
             }
         }
         
-        /* Высокие устройства */
-        @media (min-height: 1000px) {
-            :root {
-                --number-btn-size: 48px;
-            }
-        }
-        
         /* Снижение движения */
         @media (prefers-reduced-motion: reduce) {
             * {
                 animation-duration: 0.01ms !important;
                 animation-iteration-count: 1 !important;
                 transition-duration: 0.01ms !important;
-            }
-        }
-        
-        /* Новые стили для оптимизаций */
-        .notification-container {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 10000;
-            max-width: calc(100vw - 40px);
-        }
-        
-        .result-details {
-            background: rgba(0, 0, 0, 0.15);
-            padding: 16px;
-            border-radius: 8px;
-            margin: 12px 0;
-        }
-        
-        .result-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 12px;
-            margin: 16px 0;
-        }
-        
-        .result-item {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-        
-        .result-item .label {
-            color: var(--casino-gold);
-            font-weight: 500;
-            font-size: 0.9rem;
-        }
-        
-        .result-item .value {
-            font-weight: bold;
-            color: white;
-            font-size: 1rem;
-        }
-        
-        .winning-number.matched {
-            background: linear-gradient(145deg, #4CAF50, #2E7D32) !important;
-            box-shadow: 0 0 12px rgba(76, 175, 80, 0.5) !important;
-        }
-        
-        /* Анимации для JS - УПРОЩЕННЫЕ */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
-        }
-        
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-3px); }
-            75% { transform: translateX(3px); }
-        }
-        
-        @keyframes popIn {
-            0% { transform: scale(0); }
-            80% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        
-        .fade-in {
-            animation: fadeIn 0.3s ease forwards;
-        }
-        
-        .bounce {
-            animation: bounce 0.3s ease;
-        }
-        
-        .shake {
-            animation: shake 0.3s ease;
-        }
-        
-        .pop-in {
-            animation: popIn 0.2s ease forwards;
-        }
-        
-        /* Загрузка */
-        .loader {
-            display: inline-block;
-            width: 18px;
-            height: 18px;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            border-top-color: var(--casino-gold);
-            animation: spin 0.8s linear infinite;
-        }
-        
-        /* Уведомления */
-        .notification {
-            background: rgba(0, 0, 0, 0.85);
-            color: white;
-            padding: 10px 16px;
-            border-radius: 8px;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transform: translateX(100%);
-            transition: transform 0.25s ease;
-            max-width: 280px;
-            font-size: 0.9rem;
-        }
-        
-        .notification.show {
-            transform: translateX(0);
-        }
-        
-        .notification.success {
-            border-left: 3px solid #4CAF50;
-        }
-        
-        .notification.error {
-            border-left: 3px solid #f44336;
-        }
-        
-        .notification.warning {
-            border-left: 3px solid #ff9800;
-        }
-        
-        /* Оптимизация для iOS */
-        @supports (-webkit-touch-callout: none) {
-            body {
-                -webkit-overflow-scrolling: touch;
-            }
-            
-            .number-btn {
-                cursor: pointer;
-            }
-        }
-        
-        /* Фикс для прокрутки в Telegram */
-        body.telegram-mini-app .numbers-grid {
-            overflow: visible;
-            max-height: none;
-            min-height: auto;
-        }
-        
-        /* Улучшаем производительность на слабых устройствах */
-        @media (max-width: 768px) {
-            .number-btn.selected {
-                animation-duration: 1.5s;
             }
         }
     </style>
@@ -880,7 +733,7 @@
         <h1>🎰 Классика 6/45</h1>
         
         <div class="header-section">
-            <p>Выберите 6 чисел от 1 до 45</p>
+            <p>Текущий тираж: <span id="currentTiraj">№ 001</span></p>
             <button onclick="showRules()" class="rules-btn">
                 <span>📋</span> Правила
             </button>
@@ -896,28 +749,30 @@
             </div>
         </div>
         
-        <div class="controls">
-            <button onclick="quickPick()" class="control-btn quick-pick">
-                <span>🎲</span> Быстрый выбор
-            </button>
-            <button onclick="clearSelection()" class="control-btn clear">
-                <span>🗑️</span> Очистить
-            </button>
-            <button onclick="playGame()" id="playBtn" class="control-btn play">
-                <span>⭐</span> Играть за <span class="stars-badge">100 <span class="star-icon">★</span></span>
-            </button>
-            <select id="betType" class="select-style">
-                <option value="simple">Простая ставка</option>
-                <option value="expanded">Развернутая (7-12 чисел)</option>
-            </select>
+        <div class="timer-display">
+            <div>🕒 До следующего тиража:</div>
+            <div id="countdownTimer">09:59</div>
+            <div style="font-size: 0.9rem; opacity: 0.8;">Тираж продлится 2 минуты</div>
         </div>
         
-        <div class="numbers-grid" id="numbersGrid"></div>
+        <div class="controls">
+            <button onclick="showNumbersModal()" class="control-btn quick-pick">
+                <span>🎫</span> Купить билет
+            </button>
+            <button onclick="showMyTickets()" class="control-btn">
+                <span>📋</span> Мои билеты
+            </button>
+        </div>
         
-        <div class="game-info">
-            <div id="selectedNumbers">Выбрано: 0/6</div>
-            <div id="result" class="result"></div>
-            <div id="winningNumbers" class="winning-numbers"></div>
+        <div class="tickets-section">
+            <h3 style="text-align: center; color: var(--casino-gold); margin-bottom: 16px;">🎫 Купленные билеты</h3>
+            <div class="tickets-carousel" id="ticketsCarousel">
+                <!-- Билеты будут добавляться динамически -->
+                <div style="text-align: center; padding: 40px; color: rgba(255,255,255,0.5);">
+                    У вас пока нет билетов.<br>
+                    Нажмите "Купить билет" для участия в тираже!
+                </div>
+            </div>
         </div>
         
         <!-- Телеграм баланс (только в Mini App) -->
@@ -925,6 +780,37 @@
             <div class="telegram-balance" style="display: inline-flex; align-items: center; gap: 10px; padding: 10px 20px; background: rgba(52, 183, 241, 0.1); border-radius: 10px; border: 1px solid rgba(52, 183, 241, 0.3);">
                 <span>Баланс Telegram Stars:</span>
                 <span class="stars-badge" id="telegramStarsBalance">0 ★</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно выбора чисел -->
+    <div id="numbersModal" class="numbers-modal">
+        <div class="numbers-content">
+            <div class="numbers-header">
+                <h2>🎯 Выберите 6 чисел</h2>
+                <button onclick="hideNumbersModal()" class="close-modal">&times;</button>
+            </div>
+            
+            <div class="numbers-grid" id="numbersGrid"></div>
+            
+            <div style="margin: 20px 0; text-align: center;">
+                <div id="selectedNumbersCounter" style="font-size: 1.2rem; color: var(--casino-gold); margin-bottom: 16px;">
+                    Выбрано: 0/6
+                </div>
+                
+                <div style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-bottom: 20px;">
+                    <button onclick="quickPick()" class="control-btn quick-pick">
+                        <span>🎲</span> Быстрый выбор
+                    </button>
+                    <button onclick="clearSelection()" class="control-btn clear">
+                        <span>🗑️</span> Очистить
+                    </button>
+                </div>
+                
+                <button onclick="buyTicket()" id="buyTicketBtn" class="control-btn play" style="width: 100%; max-width: 300px; margin: 0 auto;">
+                    <span>💰</span> Купить билет за <span class="stars-badge">100 <span class="star-icon">★</span></span>
+                </button>
             </div>
         </div>
     </div>
@@ -944,21 +830,40 @@
                     <li><strong>Выбор чисел:</strong> Игрок выбирает 6 чисел от 1 до 45</li>
                     <li><strong>Тираж:</strong> Случайным образом выпадает 6 выигрышных чисел</li>
                     <li><strong>Ставка:</strong> <span class="stars-badge">100 <span class="star-icon">★</span></span> за билет</li>
-                    <li><strong>Частота тиражей:</strong> Ежедневно в 20:00</li>
+                    <li><strong>Частота тиражей:</strong> Каждые 10 минут</li>
+                    <li><strong>Длительность тиража:</strong> 2 минуты</li>
                 </ul>
             </div>
             
-            <!-- Остальное содержимое правил... -->
+            <div class="rules-section">
+                <h3>🏆 Выигрышные комбинации</h3>
+                <ul class="rules-list">
+                    <li><strong>6 чисел:</strong> Джекпот - 1,000,000 ★</li>
+                    <li><strong>5 чисел:</strong> 50,000 ★</li>
+                    <li><strong>4 числа:</strong> 1,000 ★</li>
+                    <li><strong>3 числа:</strong> 100 ★</li>
+                </ul>
+            </div>
+            
+            <div class="rules-section">
+                <h3>⏰ Временные интервалы</h3>
+                <ul class="rules-list">
+                    <li><strong>Прием ставок:</strong> До начала тиража</li>
+                    <li><strong>Тираж:</strong> Начинается каждые 10 минут</li>
+                    <li><strong>Розыгрыш:</strong> Длится 2 минуты</li>
+                    <li><strong>Результаты:</strong> Отображаются сразу после розыгрыша</li>
+                </ul>
+            </div>
             
             <div style="text-align: center; margin-top: 20px;">
                 <button onclick="hideRules()" class="control-btn play" style="padding: 12px 30px;">
-                    <span>⭐</span> Начать игру!
+                    <span>⭐</span> Понятно!
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- JavaScript код - ОПТИМИЗИРОВАННЫЙ -->
+    <!-- JavaScript код -->
     <script>
         'use strict';
         
@@ -966,12 +871,9 @@
         const GAME_CONFIG = {
             totalNumbers: 45,
             numbersToSelect: 6,
-            minExpanded: 7,
-            maxExpanded: 12,
             ticketPrice: 100,
-            minAge: 18,
-            maxDailyBet: 10000,
-            drawTime: "20:00",
+            drawInterval: 10, // минут
+            drawDuration: 2, // минут
             jackpot: 1000000,
             
             prizes: {
@@ -979,167 +881,109 @@
                 4: 1000,
                 5: 50000,
                 6: 1000000
-            },
-            
-            probabilities: {
-                3: "1:57",
-                4: "1:733",
-                5: "1:34,808",
-                6: "1:8,145,060"
-            },
-            
-            expandedBonus: 1.5,
-            maxTicketsPerDraw: 10,
-            autoPickIfEmpty: true,
-            showAnimations: true,
-            soundEffects: false, // Отключаем звуки для Telegram
-            fastMode: false // Режим ускоренной игры
+            }
         };
 
-        // ==================== КЛАСС ИГРЫ - ОПТИМИЗИРОВАННЫЙ ====================
+        // ==================== КЛАСС ИГРЫ ====================
         class Classic6_45 {
             constructor() {
                 this.selectedNumbers = new Set();
-                this.gameHistory = [];
-                this.userBalance = 0;
-                this.dailySpent = 0;
-                this.isPlaying = false;
-                this.lastWin = 0;
+                this.userTickets = [];
+                this.tirajHistory = [];
+                this.currentTiraj = 0;
+                this.nextDrawTime = null;
+                this.drawTimer = null;
+                this.countdownTimer = null;
                 this.isTelegramApp = false;
                 this.telegramUserId = null;
-                
-                // Оптимизации производительности
-                this.isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-                this.useSimpleAnimations = this.isMobile;
-                this.renderQueue = [];
-                this.isRendering = false;
-                this.updateTimeout = null;
-                this.cachedElements = {};
+                this.drawStatus = 'waiting'; // waiting, drawing, finished
                 
                 this.init();
             }
             
-            init() {
+            async init() {
                 console.log("🎰 Инициализация игры Классика 6/45...");
                 
-                // Проверяем запуск в Telegram Mini App
                 this.checkTelegramEnvironment();
-                
-                // Применяем оптимизации для Telegram
-                if (this.isTelegramApp) {
-                    this.applyTelegramOptimizations();
-                }
-                
-                this.loadGameData();
+                await this.loadGameData();
                 this.initNumberGrid();
+                this.startDrawSystem();
                 this.updateUI();
-                this.setupEventListeners();
                 
-                console.log("✅ Игра готова! Режим:", this.isTelegramApp ? "Telegram Mini App" : "Браузер");
+                console.log("✅ Игра готова!");
             }
             
             checkTelegramEnvironment() {
                 if (window.Telegram && Telegram.WebApp) {
                     this.isTelegramApp = true;
-                    
-                    // Настройка Telegram Web App
                     Telegram.WebApp.expand();
-                    Telegram.WebApp.setBackgroundColor('#0a5c36');
-                    Telegram.WebApp.enableClosingConfirmation();
-                    
-                    // Получаем данные пользователя
-                    if (Telegram.WebApp.initDataUnsafe && Telegram.WebApp.initDataUnsafe.user) {
-                        this.telegramUserId = Telegram.WebApp.initDataUnsafe.user.id;
-                        console.log("👤 ID пользователя Telegram:", this.telegramUserId);
+                    document.body.classList.add('telegram-mini-app');
+                }
+            }
+            
+            async loadGameData() {
+                try {
+                    // Загрузка данных из localStorage
+                    const savedData = localStorage.getItem('classic6_45_data');
+                    if (savedData) {
+                        const data = JSON.parse(savedData);
+                        this.userTickets = data.userTickets || [];
+                        this.tirajHistory = data.tirajHistory || [];
+                        this.currentTiraj = data.currentTiraj || 0;
+                        this.nextDrawTime = data.nextDrawTime ? new Date(data.nextDrawTime) : null;
                     }
                     
-                    // Добавляем класс для стилей
-                    document.body.classList.add('telegram-mini-app');
+                    // Загрузка тиражей из файла
+                    await this.loadTirajData();
                     
-                    // Показываем баланс Telegram Stars
-                    this.showTelegramBalance();
-                    
-                    // Включаем быстрый режим для Telegram
-                    GAME_CONFIG.fastMode = true;
-                    GAME_CONFIG.showAnimations = false;
+                } catch (error) {
+                    console.error('❌ Ошибка загрузки данных:', error);
                 }
             }
             
-            applyTelegramOptimizations() {
-                console.log("⚡ Применяем Telegram оптимизации...");
-                
-                // Упрощаем конфигурацию для Telegram
-                GAME_CONFIG.showAnimations = false;
-                GAME_CONFIG.soundEffects = false;
-                
-                // Оптимизация таймингов
-                this.animationDelay = 0;
-                this.renderDelay = 16;
-                
-                // Предзагружаем ресурсы
-                this.preloadResources();
-                
-                console.log("✅ Telegram оптимизации применены");
-            }
-            
-            preloadResources() {
-                // Предзагрузка в фоновом режиме
-                if ('requestIdleCallback' in window) {
-                    requestIdleCallback(() => {
-                        // Создаем скрытые элементы для предзагрузки
-                        const preloadContainer = document.createElement('div');
-                        preloadContainer.style.position = 'absolute';
-                        preloadContainer.style.opacity = '0';
-                        preloadContainer.style.pointerEvents = 'none';
-                        document.body.appendChild(preloadContainer);
-                        
-                        // Предзагружаем иконки
-                        const icons = ['🎰', '⭐', '🎲', '🎯', '📋', '🗑️'];
-                        icons.forEach(icon => {
-                            const span = document.createElement('span');
-                            span.textContent = icon;
-                            span.style.fontSize = '32px';
-                            preloadContainer.appendChild(span);
-                        });
-                        
-                        // Удаляем после загрузки
-                        setTimeout(() => {
-                            document.body.removeChild(preloadContainer);
-                        }, 1000);
-                    });
+            async loadTirajData() {
+                try {
+                    // В реальном приложении здесь будет fetch к серверу
+                    // Для демо используем localStorage
+                    const savedTiraj = localStorage.getItem('tiraj_data');
+                    if (savedTiraj) {
+                        this.tirajHistory = JSON.parse(savedTiraj);
+                        if (this.tirajHistory.length > 0) {
+                            this.currentTiraj = Math.max(...this.tirajHistory.map(t => t.id)) + 1;
+                        } else {
+                            this.currentTiraj = 1;
+                        }
+                    } else {
+                        this.currentTiraj = 1;
+                        this.tirajHistory = [];
+                    }
+                } catch (error) {
+                    console.error('❌ Ошибка загрузки тиражей:', error);
                 }
             }
             
-            showTelegramBalance() {
-                const balanceElement = document.getElementById('telegramBalance');
-                if (balanceElement) {
-                    balanceElement.style.display = 'block';
-                    // В реальном приложении здесь будет запрос к API
-                    document.getElementById('telegramStarsBalance').textContent = '1,500 ★';
+            async saveTirajData() {
+                try {
+                    localStorage.setItem('tiraj_data', JSON.stringify(this.tirajHistory));
+                    
+                    // В реальном приложении здесь будет отправка на сервер
+                    console.log('💾 Тираж сохранен в БД');
+                    
+                } catch (error) {
+                    console.error('❌ Ошибка сохранения тиражей:', error);
                 }
             }
             
             initNumberGrid() {
                 const grid = document.getElementById('numbersGrid');
-                if (!grid) {
-                    console.error("❌ Не найден элемент numbersGrid!");
-                    return;
-                }
+                if (!grid) return;
                 
                 grid.innerHTML = '';
                 
-                // Используем DocumentFragment для batch-рендеринга
-                const fragment = document.createDocumentFragment();
-                
                 for (let i = 1; i <= GAME_CONFIG.totalNumbers; i++) {
                     const button = this.createNumberButton(i);
-                    fragment.appendChild(button);
+                    grid.appendChild(button);
                 }
-                
-                grid.appendChild(fragment);
-                
-                // Кэшируем кнопки для быстрого доступа
-                this.cachedElements.numberButtons = grid.querySelectorAll('.number-btn');
             }
             
             createNumberButton(number) {
@@ -1147,308 +991,244 @@
                 button.className = 'number-btn';
                 button.textContent = number;
                 button.dataset.number = number;
-                button.title = `Число ${number}`;
-                
-                // Используем делегирование событий для оптимизации
-                button.addEventListener('touchstart', (e) => {
-                    if (e.cancelable) {
-                        e.preventDefault();
-                    }
-                    this.toggleNumber(number);
-                }, { passive: false });
                 
                 button.addEventListener('click', () => this.toggleNumber(number));
-                
-                // Упрощенные анимации для мобильных
-                if (!this.useSimpleAnimations && GAME_CONFIG.showAnimations) {
-                    button.style.animationDelay = `${(number * 3)}ms`;
-                    button.classList.add('fade-in');
-                }
                 
                 return button;
             }
             
             toggleNumber(number) {
-                if (this.isPlaying) return;
-                
-                const betType = this.getBetType();
-                const maxNumbers = betType === 'expanded' ? 
-                    GAME_CONFIG.maxExpanded : GAME_CONFIG.numbersToSelect;
-                
                 if (this.selectedNumbers.has(number)) {
                     this.selectedNumbers.delete(number);
                 } else {
-                    if (this.selectedNumbers.size >= maxNumbers) {
-                        this.showNotification(`Можно выбрать максимум ${maxNumbers} чисел`);
+                    if (this.selectedNumbers.size >= GAME_CONFIG.numbersToSelect) {
+                        this.showNotification(`Можно выбрать только ${GAME_CONFIG.numbersToSelect} чисел`);
                         return;
                     }
                     this.selectedNumbers.add(number);
                 }
                 
-                this.highlightNumberButton(number, !this.selectedNumbers.has(number));
-                this.updateUI();
+                this.updateNumberButtons();
+                this.updateSelectionCounter();
             }
             
-            highlightNumberButton(number, wasSelected) {
-                const button = this.cachedElements.numberButtons?.[number - 1];
-                if (!button) return;
-                
-                const isSelected = this.selectedNumbers.has(number);
-                button.classList.toggle('selected', isSelected);
-                
-                // Упрощенные анимации
-                if (!this.useSimpleAnimations && GAME_CONFIG.showAnimations) {
-                    if (isSelected) {
-                        button.classList.add('bounce');
-                        setTimeout(() => button.classList.remove('bounce'), 300);
-                    } else if (wasSelected) {
-                        button.classList.add('shake');
-                        setTimeout(() => button.classList.remove('shake'), 300);
-                    }
+            updateNumberButtons() {
+                const buttons = document.querySelectorAll('.number-btn');
+                buttons.forEach(btn => {
+                    const num = parseInt(btn.dataset.number);
+                    btn.classList.toggle('selected', this.selectedNumbers.has(num));
+                });
+            }
+            
+            updateSelectionCounter() {
+                const counter = document.getElementById('selectedNumbersCounter');
+                if (counter) {
+                    const count = this.selectedNumbers.size;
+                    counter.textContent = `Выбрано: ${count}/${GAME_CONFIG.numbersToSelect}`;
+                    counter.style.color = count === GAME_CONFIG.numbersToSelect ? '#4CAF50' : 
+                                       count > 0 ? '#FFD700' : '#f44336';
                 }
             }
             
             quickPick() {
-                if (this.isPlaying) return;
+                this.selectedNumbers.clear();
+                const allNumbers = Array.from({length: GAME_CONFIG.totalNumbers}, (_, i) => i + 1);
+                const shuffled = this.shuffleArray(allNumbers);
                 
-                const betType = this.getBetType();
-                let count;
-                
-                if (betType === 'expanded') {
-                    // Для развернутой ставки случайное количество от minExpanded до maxExpanded
-                    count = Math.floor(Math.random() * 
-                        (GAME_CONFIG.maxExpanded - GAME_CONFIG.minExpanded + 1)) + 
-                        GAME_CONFIG.minExpanded;
-                } else {
-                    // Для простой ставки всегда 6 чисел
-                    count = GAME_CONFIG.numbersToSelect;
+                for (let i = 0; i < GAME_CONFIG.numbersToSelect; i++) {
+                    this.selectedNumbers.add(shuffled[i]);
                 }
                 
-                // Сначала очищаем все текущие выделения
-                const currentSelected = Array.from(this.selectedNumbers);
-                currentSelected.forEach(num => {
-                    this.selectedNumbers.delete(num);
-                    this.highlightNumberButton(num, true);
-                });
-                
-                // Теперь selectedNumbers полностью очищен
-                this.selectedNumbers.clear();
-                
-                // Генерируем новые числа
-                const allNumbers = Array.from({length: GAME_CONFIG.totalNumbers}, (_, i) => i + 1);
-                const shuffled = this.shuffleArrayFast(allNumbers);
-                
-                // Берем ровно count чисел
-                const newNumbers = shuffled.slice(0, count);
-                
-                // Добавляем новые числа
-                newNumbers.forEach(num => {
-                    this.selectedNumbers.add(num);
-                    this.highlightNumberButton(num, false);
-                });
-                
-                this.updateUI();
-                this.showNotification(`🎲 Выбрано ${count} случайных чисел!`);
+                this.updateNumberButtons();
+                this.updateSelectionCounter();
+                this.showNotification('🎲 Выбраны случайные числа!');
             }
             
-            shuffleArrayFast(array) {
-                // Оптимизированный shuffle для мобильных
+            clearSelection() {
+                this.selectedNumbers.clear();
+                this.updateNumberButtons();
+                this.updateSelectionCounter();
+                this.showNotification('🗑️ Выбор очищен!');
+            }
+            
+            shuffleArray(array) {
                 const shuffled = [...array];
                 for (let i = shuffled.length - 1; i > 0; i--) {
-                    // Используем быстрый Math.random вместо криптографического
                     const j = Math.floor(Math.random() * (i + 1));
                     [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
                 }
                 return shuffled;
             }
             
-            clearSelection() {
-                if (this.isPlaying) return;
-                
-                const previouslySelected = new Set(this.selectedNumbers);
-                this.selectedNumbers.clear();
-                
-                previouslySelected.forEach(num => {
-                    this.highlightNumberButton(num, true);
-                });
-                
-                this.updateUI();
-                this.showNotification('🗑️ Выбор очищен!');
-            }
-            
-            playGame() {
-                if (this.isPlaying) return;
-                
-                if (this.isTelegramApp) {
-                    this.playGameInTelegram();
-                } else {
-                    this.playGameInBrowser();
-                }
-            }
-            
-            playGameInBrowser() {
-                if (!this.validatePlayConditions()) {
+            async buyTicket() {
+                if (this.selectedNumbers.size !== GAME_CONFIG.numbersToSelect) {
+                    this.showNotification(`Нужно выбрать ровно ${GAME_CONFIG.numbersToSelect} чисел`);
                     return;
                 }
                 
-                const betType = this.getBetType();
-                const selectedArray = Array.from(this.selectedNumbers);
-                const ticketCost = this.calculateTicketCost(betType, selectedArray.length);
-                
-                if (!this.showConfirmationDialog(betType, selectedArray, ticketCost)) {
+                if (this.drawStatus === 'drawing') {
+                    this.showNotification('❌ Прием ставок завершен! Тираж уже начался');
                     return;
                 }
                 
-                this.startGameSession(betType, selectedArray, ticketCost);
-            }
-            
-            playGameInTelegram() {
-                if (!this.validatePlayConditions()) {
-                    return;
-                }
+                const ticketId = this.generateTicketId();
+                const tirajId = this.currentTiraj;
+                const numbers = Array.from(this.selectedNumbers).sort((a, b) => a - b);
                 
-                const betType = this.getBetType();
-                const selectedArray = Array.from(this.selectedNumbers);
-                const ticketCost = this.calculateTicketCost(betType, selectedArray.length);
-                
-                // Используем Telegram UI для подтверждения
-                if (window.Telegram && Telegram.WebApp) {
-                    Telegram.WebApp.showConfirm(
-                        `Подтвердите покупку билета:\n\n💰 ${ticketCost} ★\n🔢 ${selectedArray.length} чисел\n\nНажмите ОК для игры`,
-                        (confirmed) => {
-                            if (confirmed) {
-                                this.startOptimizedGameSession(betType, selectedArray, ticketCost);
-                            }
-                        }
-                    );
-                } else {
-                    this.startOptimizedGameSession(betType, selectedArray, ticketCost);
-                }
-            }
-            
-            validatePlayConditions() {
-                const betType = this.getBetType();
-                const minNumbers = betType === 'expanded' ? 
-                    GAME_CONFIG.minExpanded : GAME_CONFIG.numbersToSelect;
-                
-                if (this.selectedNumbers.size < minNumbers) {
-                    this.showNotification(`Нужно выбрать минимум ${minNumbers} чисел`);
-                    return false;
-                }
-                
-                const ticketCost = this.calculateTicketCost(betType, this.selectedNumbers.size);
-                if (this.dailySpent + ticketCost > GAME_CONFIG.maxDailyBet) {
-                    this.showNotification(`Дневной лимит! Макс: ${GAME_CONFIG.maxDailyBet} ★`);
-                    return false;
-                }
-                
-                return true;
-            }
-            
-            showConfirmationDialog(betType, numbers, cost) {
-                const message = `🎫 Подтвердите ставку:
-                    
-📊 Тип: ${betType === 'expanded' ? 'РАЗВЕРНУТАЯ' : 'ПРОСТАЯ'}
-🔢 Чисел: ${numbers.length}
-💰 Стоимость: ${cost} ★
-💵 Сегодня: ${this.dailySpent} / ${GAME_CONFIG.maxDailyBet} ★
-                    
-ОК - продолжить`;
-                
-                return confirm(message.trim());
-            }
-            
-            startGameSession(betType, selectedNumbers, ticketCost) {
-                this.isPlaying = true;
-                this.disableInterface(true);
-                this.dailySpent += ticketCost;
-                
-                const winningNumbers = this.generateWinningNumbersOptimized();
-                const matchedNumbers = this.calculateMatches(selectedNumbers, winningNumbers);
-                const winAmount = this.calculateWinAmount(betType, matchedNumbers.length);
-                
-                this.saveGameResult(selectedNumbers, winningNumbers, matchedNumbers, winAmount, ticketCost);
-                
-                if (winAmount > 0) {
-                    this.userBalance += winAmount;
-                    this.lastWin = winAmount;
-                }
-                
-                this.showGameResultsOptimized(winningNumbers, matchedNumbers, winAmount, ticketCost);
-                
-                setTimeout(() => {
-                    this.isPlaying = false;
-                    this.disableInterface(false);
-                    this.updateUI();
-                }, 2500);
-            }
-            
-            startOptimizedGameSession(betType, selectedNumbers, ticketCost) {
-                this.isPlaying = true;
-                this.disableInterface(true);
-                this.dailySpent += ticketCost;
-                
-                // Быстрая генерация чисел для Telegram
-                const winningNumbers = this.generateWinningNumbersFast();
-                const matchedNumbers = this.calculateMatches(selectedNumbers, winningNumbers);
-                const winAmount = this.calculateWinAmount(betType, matchedNumbers.length);
-                
-                // Минимальное сохранение для скорости
-                const gameResult = {
-                    id: Date.now(),
-                    timestamp: new Date().toISOString(),
-                    selectedNumbers: [...selectedNumbers].sort((a, b) => a - b),
-                    winningNumbers: [...winningNumbers],
-                    matchedNumbers: [...matchedNumbers],
-                    winAmount: winAmount,
-                    ticketCost: ticketCost
+                const ticket = {
+                    id: ticketId,
+                    tirajId: tirajId,
+                    numbers: numbers,
+                    purchaseTime: new Date().toISOString(),
+                    drawTime: this.nextDrawTime.toISOString(),
+                    winningNumbers: [],
+                    matchedNumbers: [],
+                    winAmount: 0,
+                    status: 'pending',
+                    formattedId: this.formatTicketId(ticketId),
+                    formattedTirajId: this.formatTirajId(tirajId)
                 };
                 
-                this.gameHistory.unshift(gameResult);
-                if (this.gameHistory.length > 20) {
-                    this.gameHistory = this.gameHistory.slice(0, 20);
+                this.userTickets.unshift(ticket);
+                this.updateTicketsDisplay();
+                
+                this.showNotification(`🎫 Билет ${ticket.formattedId} куплен! Тираж ${ticket.formattedTirajId}`);
+                
+                // Сохраняем данные
+                await this.saveGameData();
+                
+                // Очищаем выбор и закрываем модальное окно
+                this.clearSelection();
+                setTimeout(() => hideNumbersModal(), 1000);
+            }
+            
+            generateTicketId() {
+                const timestamp = Date.now();
+                const random = Math.floor(Math.random() * 1000);
+                return parseInt(`${timestamp}${random}`.slice(-9));
+            }
+            
+            formatTicketId(id) {
+                const str = id.toString().padStart(9, '0');
+                return `${str.slice(0, 3)} ${str.slice(3, 6)} ${str.slice(6, 9)}`;
+            }
+            
+            formatTirajId(id) {
+                return id.toString().padStart(3, '0');
+            }
+            
+            startDrawSystem() {
+                if (!this.nextDrawTime) {
+                    // Первый тираж через 10 минут
+                    this.nextDrawTime = new Date();
+                    this.nextDrawTime.setMinutes(this.nextDrawTime.getMinutes() + GAME_CONFIG.drawInterval);
                 }
                 
-                if (winAmount > 0) {
-                    this.userBalance += winAmount;
-                    this.lastWin = winAmount;
+                this.updateCountdown();
+                this.countdownTimer = setInterval(() => this.updateCountdown(), 1000);
+            }
+            
+            updateCountdown() {
+                const now = new Date();
+                const timeDiff = this.nextDrawTime - now;
+                
+                if (timeDiff <= 0) {
+                    // Начинается тираж
+                    if (this.drawStatus !== 'drawing') {
+                        this.startDraw();
+                    }
                     
-                    // Специальное уведомление для Telegram
-                    if (this.isTelegramApp && window.Telegram && Telegram.WebApp) {
-                        Telegram.WebApp.showAlert(`🎉 ПОБЕДА! Вы выиграли ${winAmount} ★`);
+                    const drawTimePassed = Math.abs(timeDiff) / 1000;
+                    const drawTimeLeft = (GAME_CONFIG.drawDuration * 60) - drawTimePassed;
+                    
+                    if (drawTimeLeft <= 0) {
+                        // Завершение тиража
+                        this.finishDraw();
+                    } else {
+                        // Показываем время розыгрыша
+                        this.updateTimerDisplay('drawing', drawTimeLeft);
+                    }
+                } else {
+                    // Ожидание тиража
+                    this.updateTimerDisplay('waiting', timeDiff / 1000);
+                }
+            }
+            
+            updateTimerDisplay(status, seconds) {
+                const timerElement = document.getElementById('countdownTimer');
+                const tirajElement = document.getElementById('currentTiraj');
+                
+                if (!timerElement) return;
+                
+                if (status === 'drawing') {
+                    this.drawStatus = 'drawing';
+                    const mins = Math.floor(seconds / 60);
+                    const secs = Math.floor(seconds % 60);
+                    timerElement.innerHTML = `🎰 Розыгрыш: <span style="color:#ff4757">${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}</span>`;
+                    tirajElement.textContent = `№ ${this.formatTirajId(this.currentTiraj)} (РОЗЫГРЫШ)`;
+                } else {
+                    this.drawStatus = 'waiting';
+                    const mins = Math.floor(seconds / 60);
+                    const secs = Math.floor(seconds % 60);
+                    timerElement.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+                    tirajElement.textContent = `№ ${this.formatTirajId(this.currentTiraj)}`;
+                }
+            }
+            
+            async startDraw() {
+                console.log('🎰 Начало тиража', this.currentTiraj);
+                this.drawStatus = 'drawing';
+                this.showNotification('🎰 Тираж начался! Розыгрыш 2 минуты');
+            }
+            
+            async finishDraw() {
+                console.log('🎰 Завершение тиража', this.currentTiraj);
+                
+                // Генерация выигрышных чисел
+                const winningNumbers = this.generateWinningNumbers();
+                
+                // Проверка билетов этого тиража
+                const tirajTickets = this.userTickets.filter(t => t.tirajId === this.currentTiraj);
+                
+                for (const ticket of tirajTickets) {
+                    const matchedNumbers = ticket.numbers.filter(num => winningNumbers.includes(num));
+                    ticket.winningNumbers = winningNumbers;
+                    ticket.matchedNumbers = matchedNumbers;
+                    ticket.status = matchedNumbers.length >= 3 ? 'win' : 'lose';
+                    
+                    if (matchedNumbers.length >= 3) {
+                        ticket.winAmount = GAME_CONFIG.prizes[matchedNumbers.length] || 0;
+                        this.showNotification(`🎉 Билет ${ticket.formattedId} выиграл ${ticket.winAmount} ★!`);
                     }
                 }
                 
-                this.showOptimizedResults(winningNumbers, matchedNumbers, winAmount, ticketCost);
+                // Сохраняем результаты тиража
+                const tirajResult = {
+                    id: this.currentTiraj,
+                    date: new Date().toISOString(),
+                    winningNumbers: winningNumbers,
+                    ticketsCount: tirajTickets.length,
+                    winners: tirajTickets.filter(t => t.status === 'win').length
+                };
                 
-                setTimeout(() => {
-                    this.isPlaying = false;
-                    this.disableInterface(false);
-                    this.updateUI();
-                }, 2000);
+                this.tirajHistory.push(tirajResult);
+                
+                // Подготавливаем следующий тираж
+                this.currentTiraj++;
+                this.nextDrawTime = new Date();
+                this.nextDrawTime.setMinutes(this.nextDrawTime.getMinutes() + GAME_CONFIG.drawInterval);
+                
+                // Сохраняем данные
+                await this.saveGameData();
+                await this.saveTirajData();
+                
+                this.updateTicketsDisplay();
+                this.drawStatus = 'waiting';
+                
+                this.showNotification(`✅ Тираж ${this.formatTirajId(tirajResult.id)} завершен! Выпали числа: ${winningNumbers.join(', ')}`);
             }
             
-            generateWinningNumbersOptimized() {
-                // Оптимизированная генерация
-                if (GAME_CONFIG.fastMode || this.isMobile) {
-                    return this.generateWinningNumbersFast();
-                } else {
-                    return this.generateWinningNumbersSecure();
-                }
-            }
-            
-            generateWinningNumbersSecure() {
-                const numbers = new Set();
-                while (numbers.size < 6) {
-                    const array = new Uint32Array(1);
-                    crypto.getRandomValues(array);
-                    const num = (array[0] % GAME_CONFIG.totalNumbers) + 1;
-                    numbers.add(num);
-                }
-                return Array.from(numbers).sort((a, b) => a - b);
-            }
-            
-            generateWinningNumbersFast() {
+            generateWinningNumbers() {
                 const numbers = [];
                 while (numbers.length < 6) {
                     const num = Math.floor(Math.random() * GAME_CONFIG.totalNumbers) + 1;
@@ -1459,304 +1239,99 @@
                 return numbers.sort((a, b) => a - b);
             }
             
-            calculateMatches(selected, winning) {
-                // Оптимизированный поиск совпадений
-                const winningSet = new Set(winning);
-                return selected.filter(num => winningSet.has(num));
-            }
-            
-            calculateWinAmount(betType, matchCount) {
-                if (matchCount < 3) return 0;
+            updateTicketsDisplay() {
+                const carousel = document.getElementById('ticketsCarousel');
+                if (!carousel) return;
                 
-                let winAmount = GAME_CONFIG.prizes[matchCount] || 0;
-                
-                if (betType === 'expanded' && matchCount === 6) {
-                    winAmount *= GAME_CONFIG.expandedBonus;
+                if (this.userTickets.length === 0) {
+                    carousel.innerHTML = `
+                        <div style="text-align: center; padding: 40px; color: rgba(255,255,255,0.5); width: 100%;">
+                            У вас пока нет билетов.<br>
+                            Нажмите "Купить билет" для участия в тираже!
+                        </div>
+                    `;
+                    return;
                 }
                 
-                return winAmount;
+                carousel.innerHTML = '';
+                
+                this.userTickets.forEach(ticket => {
+                    const ticketElement = this.createTicketElement(ticket);
+                    carousel.appendChild(ticketElement);
+                });
             }
             
-            showGameResultsOptimized(winningNumbers, matchedNumbers, winAmount, ticketCost) {
-                const resultDiv = document.getElementById('result');
-                const winningDiv = document.getElementById('winningNumbers');
+            createTicketElement(ticket) {
+                const div = document.createElement('div');
+                div.className = 'ticket-card fade-in';
                 
-                if (!resultDiv || !winningDiv) return;
-                
-                winningDiv.innerHTML = '<strong>🎯 Выигрышные числа:</strong> ';
-                
-                // Анимируем показ чисел с задержкой
-                winningNumbers.forEach((num, index) => {
-                    setTimeout(() => {
-                        const span = document.createElement('span');
-                        span.textContent = num;
-                        span.classList.add('winning-number');
-                        
-                        if (matchedNumbers.includes(num)) {
-                            span.classList.add('matched');
-                        }
-                        
-                        winningDiv.appendChild(span);
-                        
-                        if (GAME_CONFIG.showAnimations) {
-                            span.classList.add('pop-in');
-                        }
-                    }, index * 150);
+                const drawTime = new Date(ticket.drawTime);
+                const timeStr = drawTime.toLocaleTimeString('ru-RU', { 
+                    hour: '2-digit', 
+                    minute: '2-digit' 
                 });
                 
-                const isWin = winAmount > 0;
-                resultDiv.innerHTML = `
-                    <div class="result-details">
-                        <h3>🎰 РЕЗУЛЬТАТ ИГРЫ</h3>
-                        <div class="result-grid">
-                            <div class="result-item">
-                                <span class="label">💵 Стоимость:</span>
-                                <span class="value">${ticketCost.toLocaleString()} ★</span>
-                            </div>
-                            <div class="result-item">
-                                <span class="label">✅ Совпадений:</span>
-                                <span class="value">${matchedNumbers.length} из 6</span>
-                            </div>
-                            <div class="result-item">
-                                <span class="label">🎯 Ваши числа:</span>
-                                <span class="value">${matchedNumbers.length > 0 ? matchedNumbers.join(', ') : 'нет'}</span>
-                            </div>
-                        </div>
-                        <div class="${isWin ? 'win' : 'lose'}">
-                            ${isWin ? `🎊 ПОЗДРАВЛЯЕМ! ВЫ ВЫИГРАЛИ ${winAmount.toLocaleString()} ★!` : '😔 К сожалению, вы не выиграли'}
-                        </div>
+                let statusText = '';
+                let statusClass = '';
+                
+                if (ticket.status === 'win') {
+                    statusText = `🎉 С выигрышем (${ticket.winAmount} ★)`;
+                    statusClass = 'status-win';
+                } else if (ticket.status === 'lose') {
+                    statusText = '❌ Без выигрыша';
+                    statusClass = 'status-lose';
+                } else {
+                    statusText = '⏳ Ожидание тиража';
+                    statusClass = 'status-pending';
+                }
+                
+                div.innerHTML = `
+                    <div class="ticket-header">
+                        <div class="ticket-id">Билет: ${ticket.formattedId}</div>
+                        <div class="tiraj-id">Тираж: ${ticket.formattedTirajId}</div>
+                    </div>
+                    
+                    <div class="ticket-numbers">
+                        ${ticket.numbers.map(num => {
+                            const isWinning = ticket.winningNumbers.includes(num);
+                            const isSelected = ticket.matchedNumbers.includes(num);
+                            let className = 'ticket-number';
+                            if (isSelected) className += ' winning';
+                            else if (ticket.status !== 'pending') className += ' selected';
+                            
+                            return `<div class="${className}">${num}</div>`;
+                        }).join('')}
+                    </div>
+                    
+                    <div class="ticket-status ${statusClass}">
+                        ${statusText}
+                    </div>
+                    
+                    <div class="ticket-draw-time">
+                        Тираж: ${timeStr}
                     </div>
                 `;
+                
+                return div;
             }
             
-            showOptimizedResults(winningNumbers, matchedNumbers, winAmount, ticketCost) {
-                // Упрощенная версия для Telegram
-                const resultDiv = document.getElementById('result');
-                const winningDiv = document.getElementById('winningNumbers');
+            showNotification(message) {
+                console.log('🔔', message);
                 
-                if (!resultDiv || !winningDiv) return;
-                
-                // Быстрый рендеринг выигрышных чисел
-                winningDiv.innerHTML = '<strong>🎯 Выигрышные числа:</strong> ';
-                winningNumbers.forEach(num => {
-                    const span = document.createElement('span');
-                    span.textContent = num;
-                    if (matchedNumbers.includes(num)) {
-                        span.classList.add('matched');
-                    }
-                    winningDiv.appendChild(span);
-                });
-                
-                const isWin = winAmount > 0;
-                resultDiv.innerHTML = `
-                    <div style="padding: 12px; background: rgba(0,0,0,0.2); border-radius: 8px;">
-                        <div style="text-align: center; color: ${isWin ? '#4CAF50' : '#f44336'}; font-weight: bold; margin-bottom: 10px;">
-                            ${isWin ? '🎉 ПОБЕДА!' : '😔 ПРОИГРЫШ'}
-                        </div>
-                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 10px 0;">
-                            <div style="text-align: center;">
-                                <div style="color: #FFD700; font-size: 0.9rem;">Стоимость</div>
-                                <div style="font-weight: bold;">${ticketCost} ★</div>
-                            </div>
-                            <div style="text-align: center;">
-                                <div style="color: #FFD700; font-size: 0.9rem;">Совпадений</div>
-                                <div style="font-weight: bold;">${matchedNumbers.length}/6</div>
-                            </div>
-                        </div>
-                        <div style="text-align: center; padding: 10px; background: ${isWin ? 'rgba(76, 175, 80, 0.1)' : 'rgba(244, 67, 54, 0.1)'}; border-radius: 6px; border-left: 3px solid ${isWin ? '#4CAF50' : '#f44336'};">
-                            ${isWin ? `Выигрыш: <strong>${winAmount.toLocaleString()} ★</strong>` : 'Попробуйте еще раз!'}
-                        </div>
-                    </div>
-                `;
-            }
-            
-            saveGameResult(selected, winning, matched, winAmount, cost) {
-                const gameResult = {
-                    id: Date.now(),
-                    timestamp: new Date().toISOString(),
-                    selectedNumbers: [...selected].sort((a, b) => a - b),
-                    winningNumbers: [...winning],
-                    matchedNumbers: [...matched],
-                    winAmount: winAmount,
-                    ticketCost: cost,
-                    betType: this.getBetType(),
-                    telegramUserId: this.telegramUserId
-                };
-                
-                this.gameHistory.unshift(gameResult);
-                
-                if (this.gameHistory.length > 30) {
-                    this.gameHistory = this.gameHistory.slice(0, 30);
-                }
-                
-                this.saveGameData();
-            }
-            
-            calculateTicketCost(betType, selectedCount) {
-                if (betType === 'simple') {
-                    return GAME_CONFIG.ticketPrice;
+                if (this.isTelegramApp && window.Telegram?.WebApp) {
+                    Telegram.WebApp.showAlert(message);
                 } else {
-                    const combinations = this.calculateCombinations(selectedCount, 6);
-                    return combinations * GAME_CONFIG.ticketPrice;
+                    alert(message);
                 }
             }
             
-            calculateCombinations(n, k) {
-                if (k > n) return 0;
-                if (k === 0 || k === n) return 1;
-                
-                // Оптимизированный расчет
-                let result = 1;
-                const minK = Math.min(k, n - k);
-                
-                for (let i = 1; i <= minK; i++) {
-                    result = result * (n - minK + i) / i;
-                }
-                
-                return Math.round(result);
-            }
-            
-            getBetType() {
-                const select = document.getElementById('betType');
-                return select ? select.value : 'simple';
-            }
-            
-            updateUI() {
-                // Debounce частых обновлений
-                if (this.updateTimeout) {
-                    clearTimeout(this.updateTimeout);
-                }
-                
-                this.updateTimeout = setTimeout(() => {
-                    this.updateSelectionCounter();
-                    this.updatePlayButton();
-                    this.updateBalanceInfo();
-                }, 16); // ~60fps
-            }
-            
-            updateSelectionCounter() {
-                const counter = document.getElementById('selectedNumbers');
-                if (!counter) return;
-                
-                const betType = this.getBetType();
-                const min = betType === 'expanded' ? GAME_CONFIG.minExpanded : GAME_CONFIG.numbersToSelect;
-                const max = betType === 'expanded' ? GAME_CONFIG.maxExpanded : GAME_CONFIG.numbersToSelect;
-                const count = this.selectedNumbers.size;
-                
-                counter.textContent = `Выбрано: ${count} из ${max} (минимум ${min})`;
-                
-                if (count < min) {
-                    counter.style.color = '#f44336';
-                } else if (count === max) {
-                    counter.style.color = '#4CAF50';
-                } else {
-                    counter.style.color = '#FFD700';
-                }
-            }
-            
-            updatePlayButton() {
-                const playBtn = document.getElementById('playBtn');
-                if (!playBtn) return;
-                
-                const betType = this.getBetType();
-                const minNumbers = betType === 'expanded' ? 
-                    GAME_CONFIG.minExpanded : GAME_CONFIG.numbersToSelect;
-                
-                playBtn.disabled = this.selectedNumbers.size < minNumbers;
-                
-                if (betType === 'expanded' && this.selectedNumbers.size >= GAME_CONFIG.minExpanded) {
-                    const cost = this.calculateTicketCost('expanded', this.selectedNumbers.size);
-                    playBtn.innerHTML = `<span>⭐</span> Играть за <span class="stars-badge">${cost} <span class="star-icon">★</span></span>`;
-                } else {
-                    playBtn.innerHTML = `<span>⭐</span> Играть за <span class="stars-badge">${GAME_CONFIG.ticketPrice} <span class="star-icon">★</span></span>`;
-                }
-            }
-            
-            updateBalanceInfo() {
-                // Опционально: можно добавить отображение баланса
-            }
-            
-            showNotification(message, type = 'info') {
-                console.log(`🔔 ${message}`);
-                
-                // В Telegram Mini App используем нативные уведомления для важных сообщений
-                if (this.isTelegramApp && (type === 'success' || type === 'error')) {
-                    if (window.Telegram && Telegram.WebApp) {
-                        Telegram.WebApp.showAlert(message);
-                        return;
-                    }
-                }
-                
-                const notification = document.createElement('div');
-                notification.className = `notification ${type}`;
-                notification.innerHTML = `
-                    <span>${this.getNotificationIcon(type)}</span>
-                    <span>${message}</span>
-                `;
-                
-                const container = document.getElementById('notificationContainer') || 
-                                 this.createNotificationContainer();
-                container.appendChild(notification);
-                
-                setTimeout(() => notification.classList.add('show'), 10);
-                
-                setTimeout(() => {
-                    notification.classList.remove('show');
-                    setTimeout(() => notification.remove(), 300);
-                }, 2500);
-            }
-            
-            createNotificationContainer() {
-                const container = document.createElement('div');
-                container.id = 'notificationContainer';
-                container.className = 'notification-container';
-                document.body.appendChild(container);
-                return container;
-            }
-            
-            getNotificationIcon(type) {
-                const icons = {
-                    'info': 'ℹ️',
-                    'success': '✅',
-                    'warning': '⚠️',
-                    'error': '❌'
-                };
-                return icons[type] || '🔔';
-            }
-            
-            loadGameData() {
-                try {
-                    const savedData = localStorage.getItem('classic6_45_data');
-                    if (savedData) {
-                        const data = JSON.parse(savedData);
-                        
-                        this.userBalance = data.userBalance || 0;
-                        this.dailySpent = data.dailySpent || 0;
-                        this.gameHistory = data.gameHistory || [];
-                        
-                        // Сбрасываем дневной лимит если прошло больше суток
-                        const lastPlayDate = data.lastPlayDate;
-                        if (lastPlayDate) {
-                            const lastDate = new Date(lastPlayDate);
-                            const today = new Date();
-                            if (today.toDateString() !== lastDate.toDateString()) {
-                                this.dailySpent = 0;
-                            }
-                        }
-                    }
-                } catch (error) {
-                    console.error('❌ Ошибка загрузки данных:', error);
-                }
-            }
-            
-            saveGameData() {
+            async saveGameData() {
                 try {
                     const data = {
-                        userBalance: this.userBalance,
-                        dailySpent: this.dailySpent,
-                        gameHistory: this.gameHistory,
-                        lastPlayDate: new Date().toISOString(),
-                        telegramUserId: this.telegramUserId
+                        userTickets: this.userTickets,
+                        tirajHistory: this.tirajHistory,
+                        currentTiraj: this.currentTiraj,
+                        nextDrawTime: this.nextDrawTime.toISOString()
                     };
                     
                     localStorage.setItem('classic6_45_data', JSON.stringify(data));
@@ -1765,82 +1340,38 @@
                 }
             }
             
-            setupEventListeners() {
-                const betTypeSelect = document.getElementById('betType');
-                if (betTypeSelect) {
-                    betTypeSelect.addEventListener('change', () => {
-                        this.updateUI();
-                        this.showNotification(`Тип ставки: ${betTypeSelect.value === 'expanded' ? 'РАЗВЕРНУТАЯ' : 'ПРОСТАЯ'}`);
-                    });
-                }
-                
-                // Глобальные горячие клавиши
-                window.addEventListener('keydown', (event) => {
-                    if (event.code === 'Space' && !this.isPlaying) {
-                        event.preventDefault();
-                        this.quickPick();
-                    }
-                    
-                    if (event.code === 'Escape' && !this.isPlaying) {
-                        this.clearSelection();
-                    }
-                });
-                
-                // Автовыбор при загрузке
-                window.addEventListener('load', () => {
-                    setTimeout(() => {
-                        if (GAME_CONFIG.autoPickIfEmpty && this.selectedNumbers.size === 0) {
-                            this.quickPick();
-                        }
-                    }, 800);
-                });
-                
-                // Обработка изменения ориентации экрана
-                window.addEventListener('orientationchange', () => {
-                    setTimeout(() => {
-                        this.updateUI();
-                    }, 300);
-                });
-            }
-            
-            disableInterface(disabled) {
-                const buttons = document.querySelectorAll('button:not(.rules-close), select');
-                buttons.forEach(btn => {
-                    btn.disabled = disabled;
-                });
-                
-                const playBtn = document.getElementById('playBtn');
-                if (playBtn) {
-                    playBtn.disabled = disabled;
-                    playBtn.innerHTML = disabled ? 
-                        `<span class="loader"></span> Обработка...` : 
-                        this.getPlayButtonContent();
-                }
-            }
-            
-            getPlayButtonContent() {
-                const betType = this.getBetType();
-                if (betType === 'expanded' && this.selectedNumbers.size >= GAME_CONFIG.minExpanded) {
-                    const cost = this.calculateTicketCost('expanded', this.selectedNumbers.size);
-                    return `<span>⭐</span> Играть за <span class="stars-badge">${cost} <span class="star-icon">★</span></span>`;
-                } else {
-                    return `<span>⭐</span> Играть за <span class="stars-badge">${GAME_CONFIG.ticketPrice} <span class="star-icon">★</span></span>`;
-                }
-            }
-            
-            shuffleArray(array) {
-                return this.shuffleArrayFast(array);
+            updateUI() {
+                this.updateTicketsDisplay();
+                this.updateSelectionCounter();
             }
         }
 
         // ==================== ГЛОБАЛЬНЫЕ ФУНКЦИИ ====================
         let gameInstance = null;
 
-        function initGame() {
+        async function initGame() {
             if (!gameInstance) {
                 gameInstance = new Classic6_45();
+                await gameInstance.init();
             }
             return gameInstance;
+        }
+
+        function showNumbersModal() {
+            const modal = document.getElementById('numbersModal');
+            if (modal) {
+                modal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+                gameInstance.updateSelectionCounter();
+            }
+        }
+
+        function hideNumbersModal() {
+            const modal = document.getElementById('numbersModal');
+            if (modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
         }
 
         function quickPick() {
@@ -1851,8 +1382,19 @@
             if (gameInstance) gameInstance.clearSelection();
         }
 
-        function playGame() {
-            if (gameInstance) gameInstance.playGame();
+        async function buyTicket() {
+            if (gameInstance) await gameInstance.buyTicket();
+        }
+
+        function showMyTickets() {
+            const carousel = document.getElementById('ticketsCarousel');
+            if (carousel && carousel.firstElementChild) {
+                carousel.firstElementChild.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'nearest',
+                    inline: 'start'
+                });
+            }
         }
 
         function showRules() {
@@ -1881,108 +1423,38 @@
             }
         }
 
-        // ==================== ИНИЦИАЛИЗАЦИЯ ПРИ ЗАГРУЗКЕ ====================
-        (function() {
+        // ==================== ИНИЦИАЛИЗАЦИЯ ====================
+        (async function() {
             console.log('🚀 Загрузка игры Классика 6/45...');
             
-            // Скрываем прелоадер через 1 секунду минимум
             setTimeout(hidePreloader, 1000);
             
-            // Проверка на Telegram Mini App
-            const isTelegramWebApp = window.Telegram && Telegram.WebApp;
-            
-            if (isTelegramWebApp) {
-                console.log('📱 Запуск в Telegram Mini App');
-                initTelegramApp();
-            } else {
-                console.log('🌐 Запуск в браузере');
-                initBrowserApp();
-            }
-            
-            function initTelegramApp() {
-                // Дополнительная настройка Telegram
+            if (window.Telegram && Telegram.WebApp) {
                 Telegram.WebApp.ready();
-                
-                // Отслеживаем изменения viewport
-                Telegram.WebApp.onEvent('viewportChanged', (event) => {
-                    console.log('Viewport changed:', event);
-                    setTimeout(() => {
-                        if (gameInstance) gameInstance.updateUI();
-                    }, 100);
-                });
-                
-                // Обработка закрытия приложения
-                Telegram.WebApp.onEvent('closing', () => {
-                    console.log('Приложение закрывается');
-                    if (gameInstance) gameInstance.saveGameData();
-                });
-                
-                // Инициализация игры
-                setTimeout(() => {
-                    gameInstance = initGame();
-                    hidePreloader();
-                }, 500);
-                
-                // Устанавливаем обработчик клика вне модального окна
-                window.addEventListener('click', (event) => {
-                    const modal = document.getElementById('rulesModal');
-                    if (event.target === modal) {
-                        hideRules();
-                    }
-                });
-                
-                // Закрытие по Escape
-                document.addEventListener('keydown', (event) => {
-                    if (event.key === 'Escape') {
-                        hideRules();
-                    }
-                });
-                
-                console.log('✅ Игра успешно загружена в Telegram Mini App!');
+                Telegram.WebApp.expand();
             }
             
-            function initBrowserApp() {
-                if (document.readyState === 'loading') {
-                    document.addEventListener('DOMContentLoaded', initializeGame);
-                } else {
-                    initializeGame();
-                }
+            await initGame();
+            hidePreloader();
+            
+            // Обработчики кликов вне модальных окон
+            window.addEventListener('click', (event) => {
+                const numbersModal = document.getElementById('numbersModal');
+                const rulesModal = document.getElementById('rulesModal');
                 
-                function initializeGame() {
-                    setTimeout(() => {
-                        gameInstance = initGame();
-                        hidePreloader();
-                        
-                        window.addEventListener('click', (event) => {
-                            const modal = document.getElementById('rulesModal');
-                            if (event.target === modal) {
-                                hideRules();
-                            }
-                        });
-                        
-                        document.addEventListener('keydown', (event) => {
-                            if (event.key === 'Escape') {
-                                hideRules();
-                            }
-                        });
-                        
-                        console.log('✅ Игра успешно загружена в браузере!');
-                    }, 800);
-                }
-            }
-            
-            // Глобальная обработка ошибок
-            window.addEventListener('error', function(e) {
-                console.error('❌ Глобальная ошибка:', e.error);
-                hidePreloader();
+                if (event.target === numbersModal) hideNumbersModal();
+                if (event.target === rulesModal) hideRules();
             });
             
-            // Обработка отключения страницы
-            window.addEventListener('beforeunload', function() {
-                if (gameInstance) {
-                    gameInstance.saveGameData();
+            // Закрытие по Escape
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape') {
+                    hideNumbersModal();
+                    hideRules();
                 }
             });
+            
+            console.log('✅ Игра успешно загружена!');
         })();
     </script>
 </body>
