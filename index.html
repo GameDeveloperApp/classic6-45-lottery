@@ -996,60 +996,6 @@
             fastMode: false // Режим ускоренной игры
         };
 
-        // ==================== МОНИТОР ПРОИЗВОДИТЕЛЬНОСТИ ====================
-        class PerformanceMonitor {
-            constructor() {
-                this.metrics = {
-                    renderTime: 0,
-                    gameTime: 0,
-                    memoryUsage: 0
-                };
-                
-                this.startTime = performance.now();
-                this.logInterval = null;
-                
-                // Мониторинг только в режиме разработки
-                if (window.location.hostname === 'localhost' || window.location.hostname.includes('127.0.0.1')) {
-                    this.logInterval = setInterval(() => this.logPerformance(), 30000);
-                }
-            }
-            
-            startMeasure(name) {
-                if (this.logInterval) {
-                    performance.mark(`${name}-start`);
-                }
-            }
-            
-            endMeasure(name) {
-                if (this.logInterval) {
-                    performance.mark(`${name}-end`);
-                    performance.measure(name, `${name}-start`, `${name}-end`);
-                    
-                    const measures = performance.getEntriesByName(name);
-                    if (measures.length > 0) {
-                        this.metrics[name] = measures[measures.length - 1].duration;
-                    }
-                }
-            }
-            
-            logPerformance() {
-                if (performance.memory) {
-                    this.metrics.memoryUsage = Math.round(performance.memory.usedJSHeapSize / 1024 / 1024 * 100) / 100;
-                }
-                
-                console.log('📊 Производительность:', {
-                    ...this.metrics,
-                    uptime: ((performance.now() - this.startTime) / 1000).toFixed(1) + 's'
-                });
-            }
-            
-            destroy() {
-                if (this.logInterval) {
-                    clearInterval(this.logInterval);
-                }
-            }
-        }
-
         // ==================== КЛАСС ИГРЫ - ОПТИМИЗИРОВАННЫЙ ====================
         class Classic6_45 {
             constructor() {
@@ -1061,7 +1007,6 @@
                 this.lastWin = 0;
                 this.isTelegramApp = false;
                 this.telegramUserId = null;
-                this.perfMonitor = new PerformanceMonitor();
                 
                 // Оптимизации производительности
                 this.isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
@@ -1070,8 +1015,6 @@
                 this.isRendering = false;
                 this.updateTimeout = null;
                 this.cachedElements = {};
-                this.batchMode = false;
-                this.batchUpdates = [];
                 
                 this.init();
             }
@@ -1136,9 +1079,6 @@
                 // Предзагружаем ресурсы
                 this.preloadResources();
                 
-                // Применяем CSS оптимизации
-                this.applyCSSOptimizations();
-                
                 console.log("✅ Telegram оптимизации применены");
             }
             
@@ -1170,32 +1110,6 @@
                 }
             }
             
-            applyCSSOptimizations() {
-                // Динамическое добавление CSS оптимизаций
-                const style = document.createElement('style');
-                style.id = 'telegram-optimizations';
-                style.textContent = `
-                    body.telegram-mini-app .number-btn {
-                        transition: transform 0.1s ease !important;
-                    }
-                    
-                    body.telegram-mini-app .winning-numbers span {
-                        animation: none !important;
-                    }
-                    
-                    body.telegram-mini-app * {
-                        -webkit-tap-highlight-color: transparent;
-                    }
-                    
-                    @media (hover: none) {
-                        .number-btn:hover, .control-btn:hover, .rules-btn:hover {
-                            transform: none !important;
-                        }
-                    }
-                `;
-                document.head.appendChild(style);
-            }
-            
             showTelegramBalance() {
                 const balanceElement = document.getElementById('telegramBalance');
                 if (balanceElement) {
@@ -1206,8 +1120,6 @@
             }
             
             initNumberGrid() {
-                this.perfMonitor.startMeasure('initNumberGrid');
-                
                 const grid = document.getElementById('numbersGrid');
                 if (!grid) {
                     console.error("❌ Не найден элемент numbersGrid!");
@@ -1228,8 +1140,6 @@
                 
                 // Кэшируем кнопки для быстрого доступа
                 this.cachedElements.numberButtons = grid.querySelectorAll('.number-btn');
-                
-                this.perfMonitor.endMeasure('initNumberGrid');
             }
             
             createNumberButton(number) {
@@ -1301,8 +1211,6 @@
             quickPick() {
                 if (this.isPlaying) return;
                 
-                this.perfMonitor.startMeasure('quickPick');
-                
                 const betType = this.getBetType();
                 let count;
                 
@@ -1316,31 +1224,31 @@
                     count = GAME_CONFIG.numbersToSelect;
                 }
                 
-                // Батчинг обновлений
-                this.batchUpdate(() => {
-                    // Сначала очищаем все выделения
-                    Array.from(this.selectedNumbers).forEach(num => {
-                        this.highlightNumberButton(num, true);
-                    });
-                    
-                    this.selectedNumbers.clear();
-                    
-                    // Генерируем новые числа
-                    const allNumbers = Array.from({length: GAME_CONFIG.totalNumbers}, (_, i) => i + 1);
-                    const shuffled = this.shuffleArrayFast(allNumbers);
-                    
-                    // Берем ровно count чисел
-                    const newNumbers = shuffled.slice(0, count);
-                    
-                    // Добавляем новые числа
-                    newNumbers.forEach(num => {
-                        this.selectedNumbers.add(num);
-                        this.highlightNumberButton(num, false);
-                    });
+                // Сначала очищаем все текущие выделения
+                const currentSelected = Array.from(this.selectedNumbers);
+                currentSelected.forEach(num => {
+                    this.selectedNumbers.delete(num);
+                    this.highlightNumberButton(num, true);
                 });
                 
+                // Теперь selectedNumbers полностью очищен
+                this.selectedNumbers.clear();
+                
+                // Генерируем новые числа
+                const allNumbers = Array.from({length: GAME_CONFIG.totalNumbers}, (_, i) => i + 1);
+                const shuffled = this.shuffleArrayFast(allNumbers);
+                
+                // Берем ровно count чисел
+                const newNumbers = shuffled.slice(0, count);
+                
+                // Добавляем новые числа
+                newNumbers.forEach(num => {
+                    this.selectedNumbers.add(num);
+                    this.highlightNumberButton(num, false);
+                });
+                
+                this.updateUI();
                 this.showNotification(`🎲 Выбрано ${count} случайных чисел!`);
-                this.perfMonitor.endMeasure('quickPick');
             }
             
             shuffleArrayFast(array) {
@@ -1354,44 +1262,17 @@
                 return shuffled;
             }
             
-            batchUpdate(callback) {
-                // Откладываем обновление UI
-                if (this.isRendering) {
-                    this.renderQueue.push(callback);
-                    return;
-                }
-                
-                this.isRendering = true;
-                
-                requestAnimationFrame(() => {
-                    callback();
-                    
-                    requestAnimationFrame(() => {
-                        this.updateUI();
-                        this.isRendering = false;
-                        
-                        // Обрабатываем очередь
-                        if (this.renderQueue.length > 0) {
-                            const nextCallback = this.renderQueue.shift();
-                            this.batchUpdate(nextCallback);
-                        }
-                    });
-                });
-            }
-            
             clearSelection() {
                 if (this.isPlaying) return;
                 
-                // Батчинг очистки
-                this.batchUpdate(() => {
-                    const previouslySelected = new Set(this.selectedNumbers);
-                    this.selectedNumbers.clear();
-                    
-                    previouslySelected.forEach(num => {
-                        this.highlightNumberButton(num, true);
-                    });
+                const previouslySelected = new Set(this.selectedNumbers);
+                this.selectedNumbers.clear();
+                
+                previouslySelected.forEach(num => {
+                    this.highlightNumberButton(num, true);
                 });
                 
+                this.updateUI();
                 this.showNotification('🗑️ Выбор очищен!');
             }
             
@@ -1478,8 +1359,6 @@
             }
             
             startGameSession(betType, selectedNumbers, ticketCost) {
-                this.perfMonitor.startMeasure('gameSession');
-                
                 this.isPlaying = true;
                 this.disableInterface(true);
                 this.dailySpent += ticketCost;
@@ -1502,8 +1381,6 @@
                     this.disableInterface(false);
                     this.updateUI();
                 }, 2500);
-                
-                this.perfMonitor.endMeasure('gameSession');
             }
             
             startOptimizedGameSession(betType, selectedNumbers, ticketCost) {
@@ -1924,13 +1801,6 @@
                         this.updateUI();
                     }, 300);
                 });
-                
-                // Оптимизация для мобильных: предотвращение зума
-                document.addEventListener('touchstart', (e) => {
-                    if (e.touches.length > 1) {
-                        e.preventDefault();
-                    }
-                }, { passive: false });
             }
             
             disableInterface(disabled) {
@@ -1960,10 +1830,6 @@
             
             shuffleArray(array) {
                 return this.shuffleArrayFast(array);
-            }
-            
-            destroy() {
-                this.perfMonitor.destroy();
             }
         }
 
@@ -2115,7 +1981,6 @@
             window.addEventListener('beforeunload', function() {
                 if (gameInstance) {
                     gameInstance.saveGameData();
-                    gameInstance.destroy();
                 }
             });
         })();
