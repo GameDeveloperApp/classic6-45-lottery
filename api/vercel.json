@@ -1,1 +1,73 @@
+{
+  "functions": {
+    "api/v1/*.js": {
+      "maxDuration": 10
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/api/v1/test",
+      "destination": "/api/v1/test.js"
+    },
+    {
+      "source": "/api/v1/health",
+      "destination": "/api/v1/health.js"
+    },
+    {
+      "source": "/api/v1/jackpot",
+      "destination": "/api/v1/jackpot.js"
+    },
+    {
+      "source": "/api/v1/jackpot/update",
+      "destination": "/api/v1/jackpot/update.js"
+    },
+    {
+      "source": "/api/v1/users/balance",
+      "destination": "/api/v1/users/balance.js"
+    },
+    {
+      "source": "/api/v1/tiraj/current",
+      "destination": "/api/v1/tiraj/current.js"
+    },
+    {
+      "source": "/api/v1/tiraj/finish",
+      "destination": "/api/v1/tiraj/finish.js"
+    },
+    {
+      "source": "/api/v1/tiraj/create-next",
+      "destination": "/api/v1/tiraj/create-next.js"
+    },
+    {
+      "source": "/api/v1/tiraj/history",
+      "destination": "/api/v1/tiraj/history.js"
+    },
+    {
+      "source": "/api/v1/tiraj/start",
+      "destination": "/api/v1/tiraj/start.js"
+    },
+    {
+      "source": "/api/v1/tickets/buy",
+      "destination": "/api/v1/tickets/buy.js"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET,POST,PUT,DELETE,OPTIONS"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Authorization"
+        }
+      ]
+    }
+  ]
+}
 
