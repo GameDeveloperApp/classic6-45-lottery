@@ -2,7 +2,7 @@
   "name": "lottery-api",
   "version": "1.0.0",
   "engines": {
-    "node": "18.x"
+    "node": "24.x"
   },
   "dependencies": {
     "mongodb": "^5.7.0"
